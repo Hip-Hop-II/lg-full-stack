@@ -1,0 +1,32 @@
+{
+  "name": "server",
+  "version": "0.1.0",
+  "description": " koa web server",
+  "main": "index.js",
+  "author": "xcxerxes",
+  "license": "MIT",
+  "dependencies": {
+    "koa": "^2.5.1",
+    "koa-body": "^4.0.3",
+    "koa-logger": "^3.2.0",
+    "koa-router": "^7.4.0",
+    "mongoose": "^5.1.6"
+  },
+  "scripts": {
+    "start": "cross-env NODE_ENV=env nodemon --exec babel-node src/index.js"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "cross-env": "^5.2.0",
+    "eslint": "^5.0.1",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.8.0",
+    "eslint-plugin-standard": "^3.1.0",
+    "faker": "^4.1.0",
+    "nodemon": "^1.17.5"
+  }
+}
