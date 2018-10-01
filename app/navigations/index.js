@@ -16,39 +16,50 @@ const CompanyStack = createStackNavigator({
   }
 })
 
-const TabNavigator = createBottomTabNavigator({
-  Home: {
-    getScreen: () => require('../screen/HomeScreen.js').default
-  },
-  Company: {
-    screen: CompanyStack,
-    navigationOptions: {
-      tabBarLabel: '公司',
-      tabBarIcon: ({tintColor}) => (
-        <Ionicons name="ios-stats-outline" size={26} color={tintColor} />
-      )
+const TabNavigator = createBottomTabNavigator(
+  {
+    Home: {
+      getScreen: () => require('../screen/HomeScreen').default
+    },
+    Company: {
+      screen: CompanyStack,
+      navigationOptions: {
+        tabBarLabel: "公司",
+        tabBarIcon: ({ tintColor }) => (
+          <Ionicons name="ios-stats-outline" size={26} color={tintColor} />
+        )
+      }
+    },
+    Information: {
+      getScreen: () => require("../screen/InformationScreen").default
+    },
+    Profile: {
+      getScreen: () => require("../screen/ProfileScreen").default
     }
   },
-  Information: {
-    getScreen: () => require('../screen/InformationScreen').default
-  },
-  Profile: {
-    getScreen: () => require('../screen/ProfileScreen').default
-  }
-}, {
-  tabBarOptions: {
-    activeTintColor: colors.greenPrimary,
-    labelStyle: {
-      fontWeight: '900'
+  {
+    tabBarOptions: {
+      activeTintColor: colors.greenPrimary,
+      labelStyle: {
+        fontWeight: "900"
+      }
     }
   }
-})
+);
 
 const MainNavigator = createStackNavigator({
-  Tab: TabNavigator
+  Tab: {
+    screen: TabNavigator,
+    navigationOptions: {
+      header: null
+    }
+  },
+  PositionDetail: {
+    getScreen: () => require('../screen/position/PositionDetailScreen').default
+  }
 }, {
   navigationOptions: {
-    header: null
+   
   }
 })
 
