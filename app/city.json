@@ -1,0 +1,172 @@
+[
+  {
+    "id": "110000",
+    "province": "北京市",
+    "children": []
+  },
+  {
+    "id": "120000",
+    "province": "天津市",
+    "children": []
+  },
+  {
+    "id": "130000",
+    "province": "河北省",
+    "children": []
+  },
+  {
+    "id": "140000",
+    "province": "山西省",
+    "children": []
+  },
+  {
+    "id": "150000",
+    "province": "内蒙古自治区",
+    "children": []
+  },
+  {
+    "id": "210000",
+    "province": "辽宁省",
+    "children": []
+  },
+  {
+    "id": "220000",
+    "province": "吉林省",
+    "children": []
+  },
+  {
+    "id": "230000",
+    "province": "黑龙江省",
+    "children": []
+  },
+  {
+    "id": "310000",
+    "province": "上海市",
+    "children": []
+  },
+  {
+    "id": "320000",
+    "province": "江苏省",
+    "children": []
+  },
+  {
+    "id": "330000",
+    "province": "浙江省",
+    "children": []
+  },
+  {
+    "id": "340000",
+    "province": "安徽省",
+    "children": []
+  },
+  {
+    "id": "350000",
+    "province": "福建省",
+    "children": []
+  },
+  {
+    "id": "360000",
+    "province": "江西省",
+    "children": []
+  },
+  {
+    "id": "370000",
+    "province": "山东省",
+    "children": []
+  },
+  {
+    "id": "410000",
+    "province": "河南省",
+    "children": []
+  },
+  {
+    "id": "420000",
+    "province": "湖北省",
+    "children": []
+  },
+  {
+    "id": "430000",
+    "province": "湖南省",
+    "children": []
+  },
+  {
+    "id": "440000",
+    "province": "广东省",
+    "children": []
+  },
+  {
+    "id": "450000",
+    "province": "广西壮族自治区",
+    "children": []
+  },
+  {
+    "id": "460000",
+    "province": "海南省",
+    "children": []
+  },
+  {
+    "id": "500000",
+    "province": "重庆市",
+    "children": []
+  },
+  {
+    "id": "510000",
+    "province": "四川省",
+    "children": []
+  },
+  {
+    "id": "520000",
+    "province": "贵州省",
+    "children": []
+  },
+  {
+    "id": "530000",
+    "province": "云南省",
+    "children": []
+  },
+  {
+    "id": "540000",
+    "province": "西藏自治区",
+    "children": []
+  },
+  {
+    "id": "610000",
+    "province": "陕西省",
+    "children": []
+  },
+  {
+    "id": "620000",
+    "province": "甘肃省",
+    "children": []
+  },
+  {
+    "id": "630000",
+    "province": "青海省",
+    "children": []
+  },
+  {
+    "id": "640000",
+    "province": "宁夏回族自治区",
+    "children": []
+  },
+  {
+    "id": "650000",
+    "province": "新疆维吾尔自治区",
+    "children": []
+  },
+  {
+    "id": "810000",
+    "province": "香港特别行政区",
+    "children": []
+  },
+  {
+    "id": "820000",
+    "province": "澳门特别行政区",
+    "children": []
+  },
+  {
+    "id": "710000",
+    "province": "台湾省",
+    "children": []
+  }
+]

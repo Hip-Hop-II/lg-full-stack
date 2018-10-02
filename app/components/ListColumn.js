@@ -34,10 +34,11 @@ export default class ListColumn extends PureComponent {
 const styles = StyleSheet.create({
   wrapper: {
     paddingHorizontal: 20,
-    paddingVertical: 15,
+    paddingVertical: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: '#fff'
   },
   leftWrapper: {
     flex: 1

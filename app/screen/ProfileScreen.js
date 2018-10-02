@@ -7,36 +7,41 @@ import ProfileButtonList from '../container/ProfileButtonList'
 import ListColumn from '../components/ListColumn'
 import { colors } from "../utils/colors"
 
+const baseStyle = {
+  size: 26,
+  color: colors.greyLight
+}
+
 const LIST = [
   {
     title: '求职意向',
-    icon: <Ionicons name="ios-cube-outline" />,
+    icon: <Ionicons name="ios-cube-outline" {...baseStyle} />,
     subTitle: '随便看看',
     link: 'Career'
   },
   {
     title: '隐私设置',
-    icon: <Ionicons name="ios-lock-outline" />,
+    icon: <Ionicons name="ios-lock-outline" {...baseStyle} />,
     link: 'Privacy'
   },
   {
     title: '默认快递',
-    icon: <Ionicons name="ios-mail-outline" />,
+    icon: <Ionicons name="ios-mail-outline" {...baseStyle} />,
     link: 'MyExpress'
   },
   {
     title: '收藏',
-    icon: <Ionicons name="ios-heart-outline" />,
+    icon: <Ionicons name="ios-heart-outline" {...baseStyle} />,
     link: 'MyCollection'
   },
   {
     title: '设置',
-    icon: <Ionicons name="ios-settings-outline" />,
+    icon: <Ionicons name="ios-settings-outline" {...baseStyle} />,
     link: 'Settings'
   },
   {
     title: '反馈与帮助',
-    icon: <Ionicons name="ios-information-circle-outline" />,
+    icon: <Ionicons name="ios-information-circle-outline" {...baseStyle} />,
     link: 'Myhelp'
   }
 ]
@@ -57,11 +62,11 @@ export default class HomeScreen extends PureComponent {
         <ListColumn key={index} link >
           <ListColumn.Left>
             <View style={styles.columnLeft}>
-              <View>
+              <View style={{flex: .14}}>
                 {item.icon}
               </View>
-              <View>
-                <Text>{item.title}</Text>
+              <View style={{flex: 1}}>
+                <Text style={{fontSize: 16}}>{item.title}</Text>
               </View>
             </View>
           </ListColumn.Left>
@@ -111,7 +116,14 @@ const styles = StyleSheet.create({
     backgroundColor: colors.grey4
   },
   profileContent: {
-    
+    paddingVertical: 15,
+    backgroundColor: colors.white,
+    shadowColor: colors.grey1,
+    shadowOffset: {
+      width: .1,
+      height: .2
+    },
+    shadowOpacity: .4
   },
   columnLeft: {
     flexDirection: 'row',
