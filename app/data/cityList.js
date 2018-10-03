@@ -1,4 +1,62 @@
-export const CITYLIST = [
+
+function formatCityList (list = []) {
+  let defaultCity = [
+    {
+      id: '100000',
+      province: '直辖市',
+      children: [
+        {
+          id: '110000',
+          city: '北京',
+          parentId: '100000'
+        },
+        {
+          id: '310000',
+          city: '上海',
+          parentId: '100000'
+        },
+        {
+          id: '120000',
+          city: '天津',
+          parentId: '100000'
+        },
+        {
+          id: '500000',
+          city: '重庆',
+          parentId: '100000'
+        },
+      ]
+    }
+  ]
+
+  let array = []
+
+  list.forEach((item, index) => {
+    if (item.id !== '110000' && item.id !== '120000' && item.id !== '500000' && item.id !== '310000') {
+      const children = item.children.map((child) => {
+        if (child.city.endsWith('市') || child.city.endsWith('自治州') || child.city.endsWith('自治区')) {
+          return {
+            ...child,
+            city: child.city.replace(/自治州||自治区||市/g, '')
+          }
+        } else if (child.city.length > 4) {
+          return {
+            ...child,
+            city: child.city.substr(0, 4)
+          }
+        }
+        return child
+      })
+      array.push({...item,
+        province: item.province === '黑龙江省' ? item.province.substr(0, 3) : item.province.substr(0, 2),
+        children
+      })
+    }
+  })
+  return defaultCity.concat(array)
+}
+
+const LIST = [
   {
     "id": "110000",
     "province": "北京",
@@ -1790,21 +1848,6 @@ export const CITYLIST = [
         "id": "632700",
         "city": "玉树藏族",
         "parentId": "630000"
-      },
-      {
-        "id": "632800",
-        "city": "海西蒙古族藏族",
-        "parentId": "630000"
-      },
-      {
-        "id": "632801",
-        "city": "海西蒙古族藏族",
-        "parentId": "630000"
-      },
-      {
-        "id": "632821",
-        "city": "海西蒙古族藏族",
-        "parentId": "630000"
       }
     ]
   },
@@ -2043,3 +2086,5 @@ export const CITYLIST = [
     "children": []
   }
 ]
+
+export const CITYLIST = formatCityList(LIST)

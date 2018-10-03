@@ -7,18 +7,31 @@ import {CITYLIST} from '../data/cityList'
 import {colors} from '../utils/colors'
 
 export default class CityList extends PureComponent {
+  state = {
+    activePovinceIndex: 0
+  }
+  provinceOnPress = (index, item) => {
+    if (index !== this.state.activePovinceIndex) {
+      this.setState({
+        activePovinceIndex: index
+      })
+    }
+  }
+  cityOnPress = item => {
+    this.props.cityOnPress(item)
+  }
   renderProvince = () => {
-    const {provinceOnPress, activePovinceIndex} = this.props
+    const {activePovinceIndex} = this.state
     return CITYLIST.map((item, index) => {
       return (
-        <TouchableOpacity key={index} onPress={() => provinceOnPress(index, item)} >
+        <TouchableOpacity key={index} onPress={() => this.provinceOnPress(index, item)} >
           <View style={styles.provinceItem}>
             <Text 
             style={[styles.provinceItemText, {
               color: activePovinceIndex === index ? colors.greyDark : colors.greyLight,
               fontWeight: activePovinceIndex === index ? 'bold' : '400',
             }]}>
-            {item.province === '黑龙江省' ? item.province.substr(0, 3) : item.province.substr(0, 2)}
+            {item.province}
             </Text>
           </View>
         </TouchableOpacity>
@@ -26,9 +39,9 @@ export default class CityList extends PureComponent {
     })
   }
   renderCity = () => {
-    const {activePovinceIndex} = this.props
+    const {activePovinceIndex} = this.state
     return CITYLIST[activePovinceIndex].children.map((item, index) => (
-      <TouchableOpacity key={index}>
+      <TouchableOpacity key={index} onPress={() => this.cityOnPress(item)}>
         <View style={styles.cityItem}>
           <Text style={styles.cityItemText}>{item.city}</Text>
         </View>
@@ -36,10 +49,13 @@ export default class CityList extends PureComponent {
     ))
   }
   render() {
+    const {style} = this.props
     return (
-      <View style={styles.wrapper}>
+      <View style={[styles.wrapper, style]}>
         <View style={styles.provinceWrapper}>
-          <ScrollView>
+          <ScrollView contentContainerStyle={{paddingTop: 15}}
+          showsVerticalScrollIndicator={false}
+          >
             {this.renderProvince()}
           </ScrollView>
         </View>
@@ -59,10 +75,10 @@ export default class CityList extends PureComponent {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    flexDirection: 'row'
+    backgroundColor: colors.grey4,
+    flexDirection: 'row',
   },
   provinceWrapper: {
-    // backgroundColor: '#fff'
   },
   provinceItem: {
     paddingHorizontal: 20,
