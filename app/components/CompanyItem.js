@@ -1,10 +1,12 @@
 import React, { PureComponent } from 'react'
-import { Text, View, StyleSheet, Image } from 'react-native'
+import { Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import {colors} from '../utils/colors'
 
 export default class CompanyItem extends PureComponent {
   render() {
+    const {onPress} = this.props
     return (
+      <TouchableOpacity onPress={onPress}>
       <View style={styles.wrapper}>
         <View style={styles.left}>
           <View style={styles.leftWrapper}>
@@ -38,6 +40,7 @@ export default class CompanyItem extends PureComponent {
           </View>
         </View>
       </View>
+      </TouchableOpacity>
     )
   }
 }

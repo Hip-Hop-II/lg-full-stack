@@ -67,8 +67,8 @@ export default class HomeScreen extends PureComponent {
     } else {
       return (
         <ScrollView contentContainerStyle={{paddingBottom: 10, backgroundColor: colors.grey2}}>
-          {Array.from({length: 10}).map((item) => (
-            <CompanyItem key={item} />
+          {Array.from({length: 10}).map((item, index) => (
+            <CompanyItem key={index + 1} />
           ))}
         </ScrollView>
       )
