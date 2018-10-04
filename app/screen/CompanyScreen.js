@@ -5,6 +5,7 @@ import {colors} from '../utils/colors'
 import DropDown from '../components/DropDown'
 import CityList from '../components/CityList'
 import CompanyItem from '../components/CompanyItem'
+import FilterList from '../components/FilterList'
 
 
 export default class HomeScreen extends PureComponent {
@@ -20,6 +21,14 @@ export default class HomeScreen extends PureComponent {
     isSortOpen: false,
     status: -1,
     activeCity: '上海',
+    filterCheckedList: [
+      {
+        id: 1,
+        title: '不限',
+        value: 'all',
+        parentId: 3
+      }
+    ]
   }
   chooseOnPress = (status) => {
     if (status === 0) {
@@ -55,15 +64,40 @@ export default class HomeScreen extends PureComponent {
   }
 
   /**
+    * 筛选按钮
+    * @param (item *) 选中的当前
+    * @param (index *) 下标
+    */
+  filterOnPress = (item, index) => {
+    const {filterCheckedList} = this.state
+    const idx = filterCheckedList.findIndex(checked => checked.id === item.id && checked.parentId === item.parentId) 
+    if (idx === -1) {
+      this.setState({
+        filterCheckedList: [...filterCheckedList, {...item}]
+      })
+    } else {
+      this.setState({
+        filterCheckedList: [...filterCheckedList.slice(0, index), ...filterCheckedList.slice(index + 1)]
+      })
+    }
+  }
+
+  /**
    * 根据不同状态渲染不同模块
    * 
    */
   renderModule = () => {
-    const {status, activeCity} = this.state
+    const {status, activeCity, filterCheckedList} = this.state
     if (status === 0) {
       return (
         <CityList activeCity={activeCity} cityOnPress={this.cityOnPress} />
       )
+    } else if (status === 1) {
+      return (
+        <FilterList checkedList={filterCheckedList} onPress={this.filterOnPress} />
+      )
+    } else if (status === 2) {
+
     } else {
       return (
         <ScrollView contentContainerStyle={{paddingBottom: 10, backgroundColor: colors.grey2}}>

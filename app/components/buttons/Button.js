@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
+import {colors} from '../../utils/colors'
 
 export default class Button extends PureComponent {
   formatPadding = () => {
@@ -9,12 +10,14 @@ export default class Button extends PureComponent {
     }
   }
   render() {
-    const {onPress, sm, md, style} = this.props
+    const {onPress, sm, md, style, full} = this.props
     let _style = {}
     if (sm) {
-      _style.width = 80
+      _style.width = 70
     } else if (md) {
-      _style.width = 100
+      _style.width = 90
+    } else if (full) {
+      _style.width = '100%'
     }
 
     return (
@@ -31,6 +34,9 @@ const styles = StyleSheet.create({
   wrapper: {
     justifyContent: 'center',
     alignItems: 'center',
-    height: 40
+    height: 30,
+    borderColor: colors.grey5,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderRadius: 6,
   }
 })

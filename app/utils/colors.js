@@ -1,5 +1,6 @@
 export const colors = {
   greenPrimary: '#54b48f',
+  greenLighter: 'rgba(84, 180, 143, .3)',
   white: '#fff',
   greyDark: '#222',
   greyLight: '#666',
