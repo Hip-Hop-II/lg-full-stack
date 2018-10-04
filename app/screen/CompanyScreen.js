@@ -6,6 +6,7 @@ import DropDown from '../components/DropDown'
 import CityList from '../components/CityList'
 import CompanyItem from '../components/CompanyItem'
 import FilterList from '../components/FilterList'
+import SortList from '../components/SortList'
 
 
 export default class HomeScreen extends PureComponent {
@@ -97,7 +98,7 @@ export default class HomeScreen extends PureComponent {
         <FilterList checkedList={filterCheckedList} onPress={this.filterOnPress} />
       )
     } else if (status === 2) {
-
+      return <SortList />
     } else {
       return (
         <ScrollView contentContainerStyle={{paddingBottom: 10, backgroundColor: colors.grey2}}>

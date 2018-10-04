@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
     backgroundColor: colors.grey4,
-    flexDirection: 'row',
+    flexDirection: 'row'
   },
   provinceWrapper: {
   },
