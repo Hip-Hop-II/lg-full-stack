@@ -1,7 +1,7 @@
 import React, { PureComponent, Fragment } from 'react'
 import { Text, View, StyleSheet, Image, FlatList } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
-import Input from '../components/Input'
+import SearchInput from '../components/SearchInput'
 import CategoriesTitleList from '../container/CategoriesTitleList'
 import CateTabs from '../components/CateTabs'
 import PositionItem from '../components/PositionItem'
@@ -65,14 +65,14 @@ export default class HomeScreen extends PureComponent {
     return (
       <Fragment>
       <View style={styles.carouselWrapper}>
-          <Input
-            style={styles.inputWrapper}
+          <SearchInput
+            style={styles.SearchInputWrapper}
             placeholder="趣头条"
           >
-            <Input.Icon>
+            <SearchInput.Icon>
               <Ionicons name="ios-search-outline" size={20} color={colors.grey1} />
-            </Input.Icon>
-          </Input>
+            </SearchInput.Icon>
+          </SearchInput>
         </View>
           <View style={styles.maqueeWrapper}>
             <Image source={images.tou_logo} style={styles.maqueeImage} />
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     position: "relative",
     alignItems: "center"
   },
-  inputWrapper: {
+  SearchInputWrapper: {
     position: "absolute",
     width: "90%",
     top: 45,

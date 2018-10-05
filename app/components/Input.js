@@ -1,28 +1,75 @@
 import React, { PureComponent } from 'react'
-import { Text, View, StyleSheet, TextInput } from 'react-native'
+import { Text, View, TextInput, StyleSheet, Animated, Easing } from 'react-native'
 import PropTypes from 'prop-types'
+import {Ionicons} from '@expo/vector-icons'
 import {colors} from '../utils/colors'
 
 export default class Input extends PureComponent {
   static propTypes = {
-
+    placeholder: PropTypes.string,
+    value: PropTypes.any,
+    onChangeText: PropTypes.func,
+    keyboardType: PropTypes.string,
+    maxLength: PropTypes.number,
+    secureTextEntry: PropTypes.bool,
+    selectionColor: PropTypes.string,
+    showCheckmark: PropTypes.bool
   }
-  static Icon = (props) => (
-    <View style={styles.iconWrapper}>{props.children}</View>
-  )
+
+  static defaultProps = {
+    selectionColor: colors.greenPrimary
+  }
+
+  state = {
+    iconScale: new Animated.Value(0)
+  }
+
+  createAnimate = (value) => {
+    Animated.timing(this.state.iconScale, {
+      toValue: value,
+      duration: 300,
+      easing: Easing.easeOutBack
+    }).start()
+  }
+
   render() {
-    const {value, style, placeholder, selectionColor, onChangeText, inputStyle} = this.props
+    const {placeholder, value, onChangeText, keyboardType,
+      maxLength,
+      secureTextEntry,
+      inputStyle,
+      selectionColor,
+      showCheckmark
+    } = this.props
+    const {iconScale} = this.state
+    const checkmarkValue = iconScale.interpolate({
+      inputRange: [0, .5, 1],
+      outputRange: [0.01, 1.6, 1]
+    })
+
+    const scaleValue = showCheckmark ? 1 : 0
+    this.createAnimate(scaleValue)
     return (
-      <View style={[style.wrapper, style]}>
+      <View style={styles.wrapper}>
         <TextInput 
         placeholder={placeholder}
-        underlineColorAndroid="transparent"
-        selectionColor={selectionColor || colors.greenPrimary}
-        onChangeText={onChangeText}
-        style={[styles.input, inputStyle]}
         value={value}
+        onChangeText={onChangeText}
+        keyboardType={keyboardType}
+        maxLength={maxLength}
+        secureTextEntry={secureTextEntry}
+        style={[styles.input, inputStyle]}
+        underlineColorAndroid="transparent"
+        selectionColor={selectionColor}
         />
-        {this.props.children}
+        {showCheckmark  && 
+        <Animated.View style={[styles.checkWrapper, {
+          transform: [{
+            scale: checkmarkValue
+          }]
+        }]}>
+          <Ionicons name="ios-checkmark" color={colors.greenPrimary} size={30} />
+        </Animated.View>
+        }
       </View>
     )
   }
@@ -31,24 +78,17 @@ export default class Input extends PureComponent {
 const styles = StyleSheet.create({
   wrapper: {
     position: 'relative',
-    justifyContent: 'center',
-    alignItems: 'center'
 
   },
   input: {
-    height: '100%',
-    borderRadius: 25,
-    backgroundColor: colors.white,
-    paddingHorizontal: 20,
-    fontSize: 16,
-    textAlign: 'center'
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: colors.grey5,
+    paddindRight: 40
   },
-  iconWrapper: {
+  checkWrapper: {
     position: 'absolute',
-    alignSelf: 'center',
-    justifyContent: 'center',
-    top: '50%',
-    marginTop: -10,
-    paddingRight: 75
+    bottom: 34,
+    right: 10,
+    overflow: 'hidden'
   }
 })

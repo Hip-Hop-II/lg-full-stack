@@ -3,6 +3,8 @@ import { Text, View, TouchableOpacity, StyleSheet } from 'react-native'
 import Button from '../components/buttons/Button'
 import {colors} from '../utils/colors'
 import Input from '../components/Input'
+import HeaderButton from '../components/buttons/HeaderButton'
+import {Ionicons} from '@expo/vector-icons'
 
 /*
   Email的规则: name@domain
@@ -20,7 +22,7 @@ import Input from '../components/Input'
 const Email_reg = /^([\w-_]+(?:\.[\w-_]+)*)@((?:[a-z0-9]+(?:-[a-zA-Z0-9]+)*)+\.[a-z]{2,6})$/gi
 const Password_reg = /^[a-z].{5,15}$/
 
-export default class SigninScreen extends PureComponent {
+export default class SignupScreen extends PureComponent {
   state = {
     email: '',
     password: '',
@@ -63,7 +65,7 @@ export default class SigninScreen extends PureComponent {
     return (
       <View style={styles.wrapper}>
         <View style={styles.header}>
-          <Text style={styles.headerTitle}>用户登录</Text>
+          <Text style={styles.headerTitle}>用户注册</Text>
           <View style={styles.avator}>
 
           </View>
@@ -82,18 +84,23 @@ export default class SigninScreen extends PureComponent {
           showCheckmark={showPasswordCheckmark}
           inputStyle={styles.inputStyle} />
           <Button full style={styles.buttonWrapper}>
-            <Text style={styles.buttonText}>登录</Text>
+            <Text style={styles.buttonText}>注册</Text>
           </Button>
           <View style={styles.footer}>
             <TouchableOpacity style={{flex: 1}}
             onPress={() => this.props.navigation.navigate('Signup')}
             >
-              <Text style={{color: colors.greenPrimary, fontSize: 12}}>还未注册？</Text>
+              <Text style={{color: colors.greenPrimary, fontSize: 12}}>已有账号,请登录？</Text>
             </TouchableOpacity>
             <TouchableOpacity>
               <Text style={{color: colors.greyLight, fontSize: 12}}>忘记密码</Text>
             </TouchableOpacity>
           </View>
+        </View>
+        <View style={styles.backButtonWrapper}>
+          <HeaderButton left onPress={() => this.props.navigation.goBack(null)}>
+            <Ionicons name="ios-arrow-round-back" size={36} color={colors.greenPrimary} />
+          </HeaderButton>
         </View>
       </View>
     )
@@ -148,5 +155,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     jusfityContent: 'space-between',
     alignItems: 'center'
+  },
+  backButtonWrapper: {
+    position: 'absolute',
+    bottom: 40,
+    left: 30
   }
 })

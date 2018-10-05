@@ -7,6 +7,13 @@ import {Ionicons} from '@expo/vector-icons'
 const AuthNavigator = createStackNavigator({
   Signin: {
     getScreen: () => require('../screen/SigninScreen').default
+  },
+  Signup: {
+    getScreen: () => require('../screen/SignupScreen').default
+  }
+}, {
+  navigationOptions: {
+    header: null
   }
 })
 
