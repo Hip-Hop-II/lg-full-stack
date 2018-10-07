@@ -1,7 +1,7 @@
 import koaBody from 'koa-body'
-import koaLogger from 'koa-logger'
+import KoaLogger from 'koa-logger'
 
 export default app => {
-  app.use(koaLogger())
+  app.use(KoaLogger())
   app.use(koaBody())
 }

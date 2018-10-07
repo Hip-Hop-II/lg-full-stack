@@ -9,7 +9,7 @@ const app = module.exports = new Koa()
 
 middlewares(app)
 
-app.listen(constants.PORT, (err) => {
+app.listen(constants.PORT, (err: any) => {
   if (err) {
     console.error(err)
   }

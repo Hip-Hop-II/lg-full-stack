@@ -1,5 +1,6 @@
-import mongoose from 'mongoose'
 import constants from './constants'
+
+import mongoose from 'mongoose'
 
 mongoose.Promise = global.Promise
 mongoose.set('debug', true)

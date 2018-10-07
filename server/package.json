@@ -6,7 +6,7 @@
   "author": "xcxerxes",
   "license": "MIT",
   "dependencies": {
-    "bcrypt": "^2.0.1",
+    "bcrypt": "^3.0.1",
     "koa": "^2.5.1",
     "koa-body": "^4.0.3",
     "koa-logger": "^3.2.0",
@@ -14,7 +14,7 @@
     "mongoose": "^5.1.6"
   },
   "scripts": {
-    "start": "cross-env NODE_ENV=env nodemon src/index.js --exec babel-node"
+    "start": "cross-env NODE_ENV=env concurrently --kill-others --names \"tsc,node\" -c \"blue,green\" \"tsc --watch\" \" nodemon src/index.ts --inspect=5858 --exec babel-node --extensions '.ts,.tsx' src/index.ts\""
   },
   "devDependencies": {
     "@babel/cli": "^7.1.2",
@@ -22,6 +22,12 @@
     "@babel/node": "^7.0.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
     "@babel/preset-env": "^7.1.0",
+    "@babel/preset-typescript": "^7.1.0",
+    "@types/koa": "^2.0.46",
+    "@types/koa-logger": "^3.1.0",
+    "@types/mongoose": "^5.2.18",
+    "@types/node": "^10.11.4",
+    "concurrently": "^4.0.1",
     "cross-env": "^5.2.0",
     "eslint": "^5.0.1",
     "eslint-config-standard": "^11.0.0",
@@ -30,6 +36,7 @@
     "eslint-plugin-promise": "^3.8.0",
     "eslint-plugin-standard": "^3.1.0",
     "faker": "^4.1.0",
-    "nodemon": "^1.17.5"
+    "nodemon": "^1.17.5",
+    "typescript": "^3.1.1"
   }
 }
