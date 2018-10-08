@@ -5,6 +5,7 @@ import {colors} from '../utils/colors'
 import Input from '../components/Input'
 import HeaderButton from '../components/buttons/HeaderButton'
 import {Ionicons} from '@expo/vector-icons'
+import {User} from '../api'
 
 /*
   Email的规则: name@domain
@@ -19,15 +20,18 @@ import {Ionicons} from '@expo/vector-icons'
     连词号-不能是第一个字符
     顶级域名（com、cn等）长度为2到6个
 */
-const Email_reg = /^([\w-_]+(?:\.[\w-_]+)*)@((?:[a-z0-9]+(?:-[a-zA-Z0-9]+)*)+\.[a-z]{2,6})$/gi
-const Password_reg = /^[a-z].{5,15}$/
+const Email_reg = /^([\w-_]+(?:\.[\w-_]+)*)@((?:[a-z0-9]+(?:-[a-zA-Z0-9]+)*)+\.[a-z]{2,6})$/i
+const Password_reg = /^[a-zA-Z].{5,15}$/
+const Username_reg = /^[a-zA-Z].{5,15}$/
 
 export default class SignupScreen extends PureComponent {
   state = {
+    username: '',
     email: '',
     password: '',
     showEmailCheckmark: false,
-    showPasswordCheckmark: false
+    showPasswordCheckmark: false,
+    showUsernameCheckmark: false
   }
 
   onChangeText = (value, type) => {
@@ -57,11 +61,38 @@ export default class SignupScreen extends PureComponent {
           showPasswordCheckmark: false
         })
       }
+    } else if (type === 'username') {
+      this.setState({
+        username: value
+      })
+      if (Username_reg.test(value)) {
+        this.setState({
+          showUsernameCheckmark: true
+        })
+      } else {
+        this.setState({
+          showUsernameCheckmark: false
+        })
+      }
+    }
+  }
+
+  registOnPress = async () => {
+    try {
+      const {username, email, password} = this.state
+      const data = await User.signup({
+        username,
+        email,
+        password
+      })
+      console.log(data.data)
+    } catch (error) {
+      
     }
   }
 
   render() {
-    const {email, password, showEmailCheckmark, showPasswordCheckmark} = this.state
+    const {email, password, username, showUsernameCheckmark, showEmailCheckmark, showPasswordCheckmark} = this.state
     return (
       <View style={styles.wrapper}>
         <View style={styles.header}>
@@ -71,6 +102,12 @@ export default class SignupScreen extends PureComponent {
           </View>
         </View>
         <View style={styles.form}>
+          <Input placeholder="请输入用户名..." 
+          onChangeText={value => this.onChangeText(value, 'username')}
+          value={username}
+          keyboardType="email-address"
+          showCheckmark={showUsernameCheckmark}
+          inputStyle={styles.inputStyle} />
           <Input placeholder="请输入邮箱..." 
           onChangeText={value => this.onChangeText(value, 'email')}
           value={email}
@@ -83,7 +120,7 @@ export default class SignupScreen extends PureComponent {
           value={password}
           showCheckmark={showPasswordCheckmark}
           inputStyle={styles.inputStyle} />
-          <Button full style={styles.buttonWrapper}>
+          <Button full style={styles.buttonWrapper} onPress={this.registOnPress}>
             <Text style={styles.buttonText}>注册</Text>
           </Button>
           <View style={styles.footer}>
