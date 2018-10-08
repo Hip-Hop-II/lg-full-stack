@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
-import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
+import { Text, View, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import {colors} from '../../utils/colors'
+import {images} from '../../utils/images'
 
 export default class Button extends PureComponent {
   formatPadding = () => {
@@ -10,7 +11,7 @@ export default class Button extends PureComponent {
     }
   }
   render() {
-    const {onPress, sm, md, style, full} = this.props
+    const {onPress, sm, md, style, full, loading} = this.props
     let _style = {}
     if (sm) {
       _style.width = 70
@@ -18,6 +19,14 @@ export default class Button extends PureComponent {
       _style.width = 90
     } else if (full) {
       _style.width = '100%'
+    }
+    if (loading) {
+      return (
+        <View style={[styles.wrapper, _style, style, {flexDirection: 'row'}]}>
+          <Image source={images.loading_img} style={{width: 50, height: 50}} />
+          {/* <Text style={{color: colors.white}}>加载中...</Text> */}
+        </View>
+      )
     }
 
     return (

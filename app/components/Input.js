@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
   input: {
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: colors.grey5,
-    paddindRight: 40
+    paddingRight: 40
   },
   checkWrapper: {
     position: 'absolute',

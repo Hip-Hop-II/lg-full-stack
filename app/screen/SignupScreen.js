@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { Text, View, TouchableOpacity, StyleSheet } from 'react-native'
+import { Text, View, TouchableOpacity, StyleSheet, AsyncStorage } from 'react-native'
 import Button from '../components/buttons/Button'
 import {colors} from '../utils/colors'
 import Input from '../components/Input'
@@ -31,7 +31,8 @@ export default class SignupScreen extends PureComponent {
     password: '',
     showEmailCheckmark: false,
     showPasswordCheckmark: false,
-    showUsernameCheckmark: false
+    showUsernameCheckmark: false,
+    loading: false
   }
 
   onChangeText = (value, type) => {
@@ -80,25 +81,33 @@ export default class SignupScreen extends PureComponent {
   registOnPress = async () => {
     try {
       const {username, email, password} = this.state
+      this.setState({
+        loading: true
+      })
       const data = await User.signup({
         username,
         email,
         password
       })
-      console.log(data.data)
+      this.setState({
+        loading: false
+      })
+      if (data.status === 200) {
+        alert('登录成功!!')
+        await AsyncStorage.setItem('Authorization', data.data)
+      }
     } catch (error) {
       
     }
   }
 
   render() {
-    const {email, password, username, showUsernameCheckmark, showEmailCheckmark, showPasswordCheckmark} = this.state
+    const {email, password, username, showUsernameCheckmark, showEmailCheckmark, showPasswordCheckmark, loading} = this.state
     return (
       <View style={styles.wrapper}>
         <View style={styles.header}>
           <Text style={styles.headerTitle}>用户注册</Text>
           <View style={styles.avator}>
-
           </View>
         </View>
         <View style={styles.form}>
@@ -120,7 +129,9 @@ export default class SignupScreen extends PureComponent {
           value={password}
           showCheckmark={showPasswordCheckmark}
           inputStyle={styles.inputStyle} />
-          <Button full style={styles.buttonWrapper} onPress={this.registOnPress}>
+          <Button full 
+          loading={loading}
+          style={styles.buttonWrapper} onPress={this.registOnPress}>
             <Text style={styles.buttonText}>注册</Text>
           </Button>
           <View style={styles.footer}>
@@ -154,7 +165,7 @@ const styles = StyleSheet.create({
   header: {
     marginBottom: 40,
     flexDirection: 'row',
-    jusfityContent: 'space-between',
+    justifyContent: 'space-between',
     alignItems: 'center',
   },
   headerTitle: {
@@ -190,7 +201,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     paddingHorizontal: 10,
     flexDirection: 'row',
-    jusfityContent: 'space-between',
+    justifyContent: 'space-between',
     alignItems: 'center'
   },
   backButtonWrapper: {

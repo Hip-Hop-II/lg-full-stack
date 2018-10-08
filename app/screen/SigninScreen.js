@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
   header: {
     marginBottom: 40,
     flexDirection: 'row',
-    jusfityContent: 'space-between',
+    justifyContent: 'space-between',
     alignItems: 'center',
   },
   headerTitle: {
@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     paddingHorizontal: 10,
     flexDirection: 'row',
-    jusfityContent: 'space-between',
+    justifyContent: 'space-between',
     alignItems: 'center'
   }
 })
