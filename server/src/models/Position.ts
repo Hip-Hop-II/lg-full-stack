@@ -2,8 +2,8 @@ import mongoose from 'mongoose'
 
 const PositionSchema = new mongoose.Schema({
   companyId: {
-    type: mongoose.Schema.Types.ObejctId,
-    ref: 'Company'
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'company'
   },
   title: {
     type: String,

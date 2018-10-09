@@ -1,7 +1,7 @@
 import User from '../../models/User'
 import {avatar_img} from '../../utils/images'
 
-export async function signin (ctx: any) {
+export async function signin (ctx: any):Promise<Object> {
   try {
     const {username, password} = ctx.request.body
     const user = await User.findOne({
