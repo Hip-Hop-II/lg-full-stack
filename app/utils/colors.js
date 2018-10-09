@@ -13,5 +13,6 @@ export const colors = {
   orange2: '#e77f5a',
   yellow1: '#dec08e',
   yellow2: '#fdbf6a',
-  blueLight: '#64a6e0'
+  blueLight: '#64a6e0',
+  danger: '#f2135d'
 }

@@ -93,8 +93,9 @@ export default class SignupScreen extends PureComponent {
         loading: false
       })
       if (data.status === 200) {
-        alert('登录成功!!')
+        alert('注册成功!!')
         await AsyncStorage.setItem('Authorization', data.data)
+        this.props.navigation.navigate('Main')
       }
     } catch (error) {
       
@@ -136,12 +137,12 @@ export default class SignupScreen extends PureComponent {
           </Button>
           <View style={styles.footer}>
             <TouchableOpacity style={{flex: 1}}
-            onPress={() => this.props.navigation.navigate('Signup')}
+            onPress={() => this.props.navigation.navigate('Signin')}
             >
-              <Text style={{color: colors.greenPrimary, fontSize: 12}}>已有账号,请登录？</Text>
+              <Text style={{color: colors.greenPrimary, fontSize: 12}}>已有账号,请登录</Text>
             </TouchableOpacity>
             <TouchableOpacity>
-              <Text style={{color: colors.greyLight, fontSize: 12}}>忘记密码</Text>
+              <Text style={{color: colors.greyLight, fontSize: 12}}>忘记密码？</Text>
             </TouchableOpacity>
           </View>
         </View>

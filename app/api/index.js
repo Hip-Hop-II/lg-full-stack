@@ -27,5 +27,18 @@ export const User = {
       .then(parseJSON)
       .then(data => data)
       .catch(err => Promise.reject(err))
-  }
+  },
+  signin (data) {
+    return fetch(`${API_URL}/signin`, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-type': 'application/json'
+      }
+    })
+      .then(checkStatus)
+      .then(parseJSON)
+      .then(data => data)
+      .catch(err => Promise.reject(err))
+  },
 }

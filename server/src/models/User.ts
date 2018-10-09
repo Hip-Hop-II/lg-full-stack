@@ -5,15 +5,20 @@ import constants from '../config/constants'
 
 const UserSchema = new mongoose.Schema({
   username: {
+    required: true,
     unique: true,
     type: String
   },
   email: {
+    required: true,
     unique: true,
     type: String
   },
   avatar: String,
-  password: String
+  password: {
+    type: String,
+    required: true
+  }
 }, {
   timestamps: true
 })
@@ -31,7 +36,8 @@ UserSchema.methods = {
     return hashSync(password, 10)
   },
   authUser (password: string) {
-    return compareSync(password, this._hashPassword(this.password))
+    console.log(this._hashPassword(this.password))
+    return compareSync(password, this.password)
   },
   createToken () {
     return jwt.sign({

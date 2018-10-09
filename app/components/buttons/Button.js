@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { Text, View, StyleSheet, TouchableOpacity, Image } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import {colors} from '../../utils/colors'
 import {images} from '../../utils/images'
 
@@ -11,7 +11,7 @@ export default class Button extends PureComponent {
     }
   }
   render() {
-    const {onPress, sm, md, style, full, loading} = this.props
+    const {onPress, sm, md, style, full, loading, disabled, disabledStyle} = this.props
     let _style = {}
     if (sm) {
       _style.width = 70
@@ -19,6 +19,13 @@ export default class Button extends PureComponent {
       _style.width = 90
     } else if (full) {
       _style.width = '100%'
+    }
+    if (disabled) {
+      return (
+        <View style={[styles.wrapper, style, disabledStyle]}>
+          {this.props.children}
+        </View>
+      )
     }
     if (loading) {
       return (

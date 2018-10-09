@@ -21,10 +21,10 @@ export default class Input extends PureComponent {
   }
 
   state = {
-    iconScale: new Animated.Value(0)
+    iconScale: new Animated.Value(0),
   }
 
-  createAnimate = (value) => {
+  createCheckAnimate = (value) => {
     Animated.timing(this.state.iconScale, {
       toValue: value,
       duration: 300,
@@ -40,14 +40,14 @@ export default class Input extends PureComponent {
       selectionColor,
       showCheckmark
     } = this.props
-    const {iconScale} = this.state
+    const {iconScale, iconCloseScale} = this.state
     const checkmarkValue = iconScale.interpolate({
       inputRange: [0, .5, 1],
       outputRange: [0.01, 1.6, 1]
     })
 
     const scaleValue = showCheckmark ? 1 : 0
-    this.createAnimate(scaleValue)
+    this.createCheckAnimate(scaleValue)
     return (
       <View style={styles.wrapper}>
         <TextInput 

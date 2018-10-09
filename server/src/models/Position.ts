@@ -1,0 +1,36 @@
+import mongoose from 'mongoose'
+
+const PositionSchema = new mongoose.Schema({
+  companyId: {
+    type: mongoose.Schema.Types.ObejctId,
+    ref: 'Company'
+  },
+  title: {
+    type: String,
+    required: true
+  },
+  city: {
+    type: String,
+    required: true
+  },
+  address: {
+    type: String,
+    required: true
+  },
+  experience: {
+    type: String,
+    required: true
+  },
+  education: {
+    type: String,
+    required: true
+  },
+  salary: {
+    type: String,
+    required: true
+  }
+}, {
+  timestamps: true
+})
+
+export default mongoose.model('position', PositionSchema)
