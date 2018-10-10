@@ -6,6 +6,7 @@ import ProfileItem from "../container/ProfileItem"
 import ProfileButtonList from '../container/ProfileButtonList'
 import ListColumn from '../components/ListColumn'
 import { colors } from "../utils/colors"
+import {User} from '../api'
 
 const baseStyle = {
   size: 26,
@@ -53,13 +54,28 @@ export default class HomeScreen extends PureComponent {
       <Ionicons name="ios-contact-outline" size={26} color={tintColor} />
     )
   }
+  state = {
+    userInfo: {}
+  }
+  async componentDidMount () {
+    try {
+      const data = await User.getUserInfo()
+      if (data.status === 200) {
+        this.setState({
+          userInfo: data.data
+        })
+      }
+    } catch (error) {
+      throw error
+    }
+  }
   profileOnPress = () => {
 
   }
   renderColumnList = () => {
     return LIST.map((item, index) => {
       return (
-        <ListColumn key={index} link >
+        <ListColumn key={index} link onPress={() => this.props.navigation.navigate(item.link)} >
           <ListColumn.Left>
             <View style={styles.columnLeft}>
               <View style={{flex: .14}}>
@@ -70,11 +86,10 @@ export default class HomeScreen extends PureComponent {
               </View>
             </View>
           </ListColumn.Left>
+          <ListColumn.Right>
             <View>
               <Ionicons name="ios-arrow-forward-outline" size={14} color={colors.greyLight} />
             </View>
-          <ListColumn.Right>
-
           </ListColumn.Right>
         </ListColumn>
       )
@@ -85,7 +100,7 @@ export default class HomeScreen extends PureComponent {
       <View style={styles.wrapper}>
         <ScrollView>
           <View style={styles.profileItem}>
-            <ProfileItem onPress={this.profileOnPress} />
+            <ProfileItem onPress={this.profileOnPress} {...this.state.userInfo} />
           </View>
           <View style={styles.profileButtons}>
             <ProfileButtonList navigation={this.props.navigation} />

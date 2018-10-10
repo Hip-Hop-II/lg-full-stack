@@ -45,3 +45,18 @@ export async function signup (ctx: any) {
     throw error
   }
 }
+
+export async function getUserInfo (ctx: any):Promise <Object> {
+  const user = await User.findById({_id: ctx._id})
+  if (user) {
+    return ctx.body = {
+      status: 200,
+      data: {
+        username: user.username,
+        email: user.email,
+        avatar: user.avatar
+      }
+    }
+  }
+}
+

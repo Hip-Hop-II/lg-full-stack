@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { Text, View, TouchableOpacity, StyleSheet, AsyncStorage } from 'react-native'
+import { Text, View, TouchableOpacity, StyleSheet, AsyncStorage, ScrollView } from 'react-native'
 import Button from '../components/buttons/Button'
 import {colors} from '../utils/colors'
 import Input from '../components/Input'
@@ -79,6 +79,7 @@ export default class SigninScreen extends PureComponent {
     const {email, password, username, showUsernameCheckmark, showEmailCheckmark, showPasswordCheckmark, loading} = this.state
     return (
       <View style={styles.wrapper}>
+        <ScrollView contentContainerStyle={{paddingTop: 80, paddingHorizontal: 30}}>
         <View style={styles.header}>
           <Text style={styles.headerTitle}>用户登录</Text>
           <View style={styles.avator}>
@@ -113,6 +114,7 @@ export default class SigninScreen extends PureComponent {
             </TouchableOpacity>
           </View>
         </View>
+        </ScrollView>
       </View>
     )
   }
@@ -121,8 +123,6 @@ export default class SigninScreen extends PureComponent {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    paddingTop: 80,
-    paddingHorizontal: 30,
     backgroundColor: colors.white
   },
   header: {

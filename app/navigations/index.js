@@ -2,6 +2,12 @@ import React from 'react'
 import {createSwitchNavigator, createStackNavigator, createBottomTabNavigator} from 'react-navigation'
 import {colors} from '../utils/colors'
 import {Ionicons} from '@expo/vector-icons'
+import {
+  createReactNavigationReduxMiddleware,
+  reduxifyNavigator
+} from 'react-navigation-redux-helpers'
+import {connect} from 'react-redux'
+import {AsyncStorage} from 'react-native'
 
 
 const AuthNavigator = createStackNavigator({
@@ -45,7 +51,7 @@ const TabNavigator = createBottomTabNavigator(
     }
   },
   {
-    initialRouteName: 'Company',
+    initialRouteName: 'Home',
     tabBarOptions: {
       activeTintColor: colors.greenPrimary,
       labelStyle: {
@@ -54,6 +60,12 @@ const TabNavigator = createBottomTabNavigator(
     }
   }
 );
+
+const ProfileStack = createStackNavigator({
+  Settings: {
+    getScreen: () => require('../screen/settings/SettingScreen').default
+  }
+})
 
 const MainNavigator = createStackNavigator({
   Tab: {
@@ -64,16 +76,60 @@ const MainNavigator = createStackNavigator({
   },
   PositionDetail: {
     getScreen: () => require('../screen/position/PositionDetailScreen').default
+  },
+  Profile: {
+    screen: ProfileStack,
+    navigationOptions: {
+      header: null
+    }
   }
 }, {
   navigationOptions: {
    
   }
 })
+export const navigationMiddleware = createReactNavigationReduxMiddleware('root', state => state.nav)
 
-export default createSwitchNavigator({
+export const RootNavigator = createSwitchNavigator({
   Auth: AuthNavigator,
   Main: MainNavigator
 }, {
   initialRouteName: 'Auth'
 })
+
+// class AppWithNavigationState extends React.PureComponent {
+//   render () {
+//     console.log(this.props)
+//     return (
+//       reduxifyNavigator(RootNavigator, 'root')
+//     )
+//   }
+// }
+const AppWithNavigationState = reduxifyNavigator(RootNavigator, 'root')
+
+class AppWidthNav extends React.PureComponent {
+  async componentWillMount () {
+    try {
+      const authorization = await AsyncStorage.getItem('Authorization')
+      if (authorization) {
+        this.props.dispatch({type: 'Login'})
+      } else {
+        this.props.dispatch({type: 'Logout'})
+      }
+    } catch (error) {
+      throw error
+    }
+  }
+  render () {
+    return (
+      <AppWithNavigationState {...this.props} />
+    )
+  }
+}
+
+const mapStateToProps = state => ({
+  state: state.nav
+})
+
+export const AppNavigator = connect(mapStateToProps)(AppWidthNav)
+console.log(AppNavigator)

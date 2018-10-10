@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import { Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import {colors} from '../utils/colors'
+import dayjs from 'dayjs'
 
 export default class PositionItem extends PureComponent {
   render() {
@@ -10,7 +11,7 @@ export default class PositionItem extends PureComponent {
         <TouchableOpacity onPress={() => onPress(this.props)}>
         <View style={styles.header}>
           <View style={styles.headerLeft}>
-            <Text style={styles.headerLeftTitle}>{newProps.position}<Text>（{newProps.position_type}）</Text></Text>
+            <Text style={styles.headerLeftTitle}>{newProps.title.substr(0, 4)}<Text></Text></Text>
             <View style={styles.hederLeftNoteWrapper}>
               <Text style={styles.headerLeftNote}>{newProps.city}</Text>
               <Text style={[styles.headerLeftNote, {marginHorizontal: 4}]}>|</Text>
@@ -23,7 +24,7 @@ export default class PositionItem extends PureComponent {
           </View>
           <View style={styles.headerRight}>
             <Text style={styles.headerRightSalary}>{newProps.salary}</Text>
-            <Text style={styles.headerRightTime}>{newProps.release_time}</Text>
+            <Text style={styles.headerRightTime}>{dayjs(newProps.createdAt).format('MM月DD日')}</Text>
           </View>
         </View>
         <View style={styles.body}>
@@ -33,18 +34,18 @@ export default class PositionItem extends PureComponent {
         </View>
         <View style={styles.footer}>
           <View style={styles.footerMedia}>
-            
+            <Image style={{width: '100%', height: '100%'}} source={{uri: newProps.companyId.avatar}} />
           </View>
           <View style={styles.footerRight}>
             <Text style={{color: colors.greyDark, fontWeight: '700'}}>
-              {newProps.company_name}
+              {newProps.companyId.name}
             </Text>
             <View style={styles.footerRightNoteWrapper}>
-              <Text style={{color: colors.greyLight, fontSize: 12}}>{newProps.company_scope}</Text>
+              <Text style={{color: colors.greyLight, fontSize: 12}}>{newProps.companyId.financing}</Text>
               <Text style={{color: colors.greyLight, fontSize: 12, marginHorizontal: 4}}>|</Text>
-              <Text style={{color: colors.greyLight, fontSize: 12}}>{newProps.conpany_person}</Text>
+              <Text style={{color: colors.greyLight, fontSize: 12}}>{newProps.companyId.peoples}</Text>
               <Text style={{color: colors.greyLight, fontSize: 12, marginHorizontal: 4}}>|</Text>
-              <Text style={{color: colors.greyLight, fontSize: 12}}>{newProps.company_services}</Text>
+              <Text style={{color: colors.greyLight, fontSize: 12}}></Text>
             </View>
           </View>
         </View>

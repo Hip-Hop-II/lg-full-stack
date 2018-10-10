@@ -9,6 +9,8 @@ import PositionItem from '../components/PositionItem'
 import { colors } from '../utils/colors'
 import { images } from '../utils/images'
 
+import {Position} from '../api'
+
 const cateTabs = [
   {
     title: '推荐'
@@ -18,27 +20,6 @@ const cateTabs = [
   }
 ]
 
-const positionList = Array.from({length: 10}).map((item, index) => {
-  return {
-    id: index++,
-    position: '前端开发工程师',
-    position_type: 'React方向',
-    salary: '15-30k',
-    city: '上海',
-    address: '虹口足球场',
-    experience: '1-3年',
-    education: '大专',
-    release_time: '09月18日',
-    notes: [{
-      title: 'WEB前端'
-    }],
-    company_name: '上海寰溪科技',
-    company_scope: '未融资',
-    conpany_person: '150-500人',
-    company_services: '移动互联网,数据服务'
-  }
-})
-
 export default class HomeScreen extends PureComponent {
   static navigationOptions = {
     tabBarLabel: '首页',
@@ -47,9 +28,24 @@ export default class HomeScreen extends PureComponent {
     )
   }
   state = {
+    positionList: [],
     cateActiveIndex: 0,
     refreshing: false
   }
+
+  async componentDidMount () {
+    try {
+      const data = await Position.getList()
+      if (data.status === 200) {
+        this.setState({
+          positionList: data.data
+        })
+      }
+    } catch (error) {
+      throw error
+    }
+  }
+
   itemOnPress = (item) => {
     this.props.navigation.navigate('PositionDetail', {id: item.id})
   }
@@ -101,7 +97,7 @@ export default class HomeScreen extends PureComponent {
   }
   
   render() {
-    const {cateActiveIndex, refreshing} = this.state
+    const {cateActiveIndex, refreshing, positionList} = this.state
     return (
       <View style={styles.wrapper}>
           <FlatList 

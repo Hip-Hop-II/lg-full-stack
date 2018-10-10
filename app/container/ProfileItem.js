@@ -10,19 +10,20 @@ import { colors } from '../utils/colors'
  
  export default class ProfileItem extends PureComponent {
    render() {
-     const {style, onPress} = this.props
+     const {style, onPress, ...newProps} = this.props
+     console.log(newProps)
      return (
        <TouchableOpacity onPress={onPress}>
        <View style={[styles.wrapper, style]}>
          <View style={styles.left}>
-            <Text style={styles.username}>LEO</Text>
+            <Text style={styles.username}>{newProps.username}</Text>
             <View style={styles.leftBody}>
               <Ionicons name="ios-create-outline" size={26} color={colors.greyLight} />
               <Text style={{marginLeft: 4, color: colors.greyLight, fontSize: 12}}>编辑在线简历</Text>
             </View>
          </View>
          <View style={styles.right}>
-            <Image source={images.tou_logo} style={styles.avator} />
+            <Image source={{uri: newProps.avatar}} style={styles.avator} />
             <View style={styles.sex}>
               <Ionicons name="md-male" color={colors.white} size={12} />
             </View>
