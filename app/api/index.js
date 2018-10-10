@@ -1,6 +1,6 @@
 import {AsyncStorage} from 'react-native'
 
-const API_URL = 'http://10.3.170.113:4000'
+const API_URL = 'http://192.168.1.4:4000'
 
 
 function checkStatus (response) {

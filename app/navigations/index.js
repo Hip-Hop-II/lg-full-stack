@@ -97,14 +97,6 @@ export const RootNavigator = createSwitchNavigator({
   initialRouteName: 'Auth'
 })
 
-// class AppWithNavigationState extends React.PureComponent {
-//   render () {
-//     console.log(this.props)
-//     return (
-//       reduxifyNavigator(RootNavigator, 'root')
-//     )
-//   }
-// }
 const AppWithNavigationState = reduxifyNavigator(RootNavigator, 'root')
 
 class AppWidthNav extends React.PureComponent {
@@ -132,4 +124,3 @@ const mapStateToProps = state => ({
 })
 
 export const AppNavigator = connect(mapStateToProps)(AppWidthNav)
-console.log(AppNavigator)

@@ -55,7 +55,7 @@ export default class HomeScreen extends PureComponent {
   renderPositionItem = ({item}) => (
     <PositionItem {...item} onPress={this.itemOnPress} />
   )
-  keyExtractor = item => String(item.id)
+  keyExtractor = item => String(item._id)
   renderHeader = () => {
     const {cateActiveIndex} = this.state
     return (

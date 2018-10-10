@@ -11,7 +11,6 @@ import { colors } from '../utils/colors'
  export default class ProfileItem extends PureComponent {
    render() {
      const {style, onPress, ...newProps} = this.props
-     console.log(newProps)
      return (
        <TouchableOpacity onPress={onPress}>
        <View style={[styles.wrapper, style]}>

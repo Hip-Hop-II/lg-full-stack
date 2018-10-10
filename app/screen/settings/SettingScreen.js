@@ -3,6 +3,8 @@ import { Text, View, StyleSheet, ScrollView } from 'react-native'
 import ListColumn from '../../components/ListColumn'
 import {Ionicons} from '@expo/vector-icons'
 import {colors} from '../../utils/colors'
+import HeaderButton from '../../components/buttons/HeaderButton'
+import Button from '../../components/buttons/Button'
 
 const AccountList = [
   {
@@ -10,7 +12,7 @@ const AccountList = [
     link: 'MyAccount'
   },
   {
-    title: '我的账号',
+    title: '修改密码',
     link: 'MyAccount'
   }
 ]
@@ -52,16 +54,18 @@ const AboutList = [
 ]
 
 export default class SettingScreen extends PureComponent {
-
+  static navigationOptions = ({navigation}) => ({
+    headerLeft: <HeaderButton left onPress={() => navigation.goBack(null)}>
+      <Ionicons name="ios-arrow-back-outline" size={30} color={colors.greyLight} />
+    </HeaderButton>,
+    title: '设置'
+  })
   renderAccount = () => {
     return AccountList.map((item, index) => {
       return (
-        <ListColumn key={index} link >
+        <ListColumn key={index} link border >
           <ListColumn.Left>
             <View style={styles.columnLeft}>
-              <View style={{flex: .14}}>
-                {item.icon}
-              </View>
               <View style={{flex: 1}}>
                 <Text style={{fontSize: 16}}>{item.title}</Text>
               </View>
@@ -74,15 +78,50 @@ export default class SettingScreen extends PureComponent {
           </ListColumn.Right>
         </ListColumn>
       )
-    }) 
+    })
   }
 
   renderSetting = () => {
-
+    return SettingList.map((item, index) => {
+      return (
+        <ListColumn key={index} link border >
+          <ListColumn.Left>
+            <View style={styles.columnLeft}>
+              <View style={{flex: 1}}>
+                <Text style={{fontSize: 16}}>{item.title}</Text>
+              </View>
+            </View>
+          </ListColumn.Left>
+          <ListColumn.Right>
+            <View>
+              <Ionicons name="ios-arrow-forward-outline" size={14} color={colors.greyLight} />
+            </View>
+          </ListColumn.Right>
+        </ListColumn>
+      )
+    })
   }
 
   renderAbout = () => {
-
+    return AboutList.map((item, index) => {
+      return (
+        <ListColumn key={index} link border >
+          <ListColumn.Left>
+            <View style={styles.columnLeft}>
+              <View style={{flex: 1}}>
+                <Text style={{fontSize: 16}}>{item.title}</Text>
+              </View>
+            </View>
+          </ListColumn.Left>
+          <ListColumn.Right>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              {item.subTitle && <Text style={{marginRight: 6}}>{item.subTitle}</Text>}
+              <Ionicons name="ios-arrow-forward-outline" size={14} color={colors.greyLight} />
+            </View>
+          </ListColumn.Right>
+        </ListColumn>
+      )
+    })
   }
 
   render() {
@@ -98,6 +137,9 @@ export default class SettingScreen extends PureComponent {
           <View style={styles.item}>
             {this.renderAbout()}
           </View>
+          <Button style={{backgroundColor: colors.white, height: 50}}>
+            <Text style={{color: colors.danger, fontSize: 16}}>退出当前账号</Text>
+          </Button>
         </ScrollView>
       </View>
     )
@@ -111,5 +153,8 @@ const styles = StyleSheet.create({
   columnLeft: {
     flexDirection: 'row',
     alignItems: 'center'
+  },
+  item: {
+    marginBottom: 15
   }
 })
