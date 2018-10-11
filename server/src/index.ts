@@ -9,11 +9,11 @@ import './config/db'
 const app = module.exports = new Koa()
 
 middlewares(app)
-mock().then(() => {
+// mock().then(() => {
   app.listen(constants.PORT, (err: any): any => {
     if (err) {
       console.error(err)
     }
     console.log(`server is running at http://localhost:${constants.PORT}`)
   })
-})
+// })

@@ -10,7 +10,6 @@ export async function signin (ctx: any):Promise<Object> {
         {email: username}
       ]
     })
-    console.log(user)
     if (!user) {
       return ctx.body = {
         status: -403,
