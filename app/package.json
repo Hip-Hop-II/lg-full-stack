@@ -13,6 +13,7 @@
     "dayjs": "^1.7.7",
     "expo": "^30.0.1",
     "prop-types": "^15.6.2",
+    "query-string": "^6.2.0",
     "react": "16.3.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-30.0.0.tar.gz",
     "react-native-svg-uri": "^1.2.3",

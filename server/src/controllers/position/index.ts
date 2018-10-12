@@ -4,40 +4,60 @@ import request from "superagent"
 import LgPosition from "../../models/LgPosition"
 import * as XLSX from "xlsx"
 import * as fs from "fs"
+import {formatQueryParams} from '../../utils'
 
-export async function getList(ctx: any): Promise<void> {
-  // const list = await Position.find({})
-  //   .limit(6)
-  // if (list) {
-  //   ctx.body = { ...utils.getStatusAndError({ status: 200 }), data: list }
-  // }
+export async function getList(ctx: any): Promise<Object> {
   try {
-    const WORD = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-    const list = await LgPosition.find({}).limit(4)
+    console.log(ctx.request.query)
+    const {type} = ctx.request.body
+    const {limit, skip, sort} = formatQueryParams(ctx.request.query)
+    console.log(sort)
+    const total = await LgPosition.count()
+    const reg = new RegExp(`${type}`, 'i')
+    const list = await LgPosition.find({$or: [
+      {firstType: reg},
+      {secondType: reg},
+      {thirdType: reg},
+    ]})
+      .limit(limit).skip(skip).sort(sort)
     if (list) {
-      const sheetList = list.slice(0, 26).map((item, index) => {
-        let obj = {}
-        console.log(Object.getOwnPropertyNames(item))
-        console.log(Object.keys(item))
-        for (let key in item) {
-          obj[WORD[index]] = item[key]
-        }
-        return obj
-      })
-      console.log(sheetList)
-      let ws = XLSX.utils.json_to_sheet(sheetList, {header: WORD})
-      let wb = XLSX.utils.book_new()
-      XLSX.utils.book_append_sheet(wb, ws, "SheetJS")
-      const wbout = new Buffer(
-        XLSX.write(wb, { bookType: "xlsx", type: "buffer" })
-      )
-      fs.writeFile('./position.xls', wbout, err => {
-        throw err
-      })
+      return ctx.body = { ...utils.getStatusAndError({ status: 200 }), list,
+        total,
+        currentPage: Math.floor(skip / limit) + 1,
+        pageSize: limit
+      }
     }
   } catch (error) {
     throw error
   }
+
+  // try {
+  //   const WORD = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+  //   const list = await LgPosition.find({}).limit(4)
+  //   if (list) {
+  //     const sheetList = list.slice(0, 26).map((item, index) => {
+  //       let obj = {}
+  //       console.log(Object.getOwnPropertyNames(item))
+  //       console.log(Object.keys(item))
+  //       for (let key in item) {
+  //         obj[WORD[index]] = item[key]
+  //       }
+  //       return obj
+  //     })
+  //     console.log(sheetList)
+  //     let ws = XLSX.utils.json_to_sheet(sheetList, {header: WORD})
+  //     let wb = XLSX.utils.book_new()
+  //     XLSX.utils.book_append_sheet(wb, ws, "SheetJS")
+  //     const wbout = new Buffer(
+  //       XLSX.write(wb, { bookType: "xlsx", type: "buffer" })
+  //     )
+  //     fs.writeFile('./position.xls', wbout, err => {
+  //       throw err
+  //     })
+  //   }
+  // } catch (error) {
+  //   throw error
+  // }
 }
 
 // export async function getData(ctx: any): Promise<void> {

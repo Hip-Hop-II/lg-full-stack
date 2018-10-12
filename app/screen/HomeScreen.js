@@ -1,5 +1,5 @@
 import React, { PureComponent, Fragment } from 'react'
-import { Text, View, StyleSheet, Image, FlatList } from 'react-native'
+import { Text, View, StyleSheet, Image, FlatList, ActivityIndicator } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import SearchInput from '../components/SearchInput'
 import CategoriesTitleList from '../container/CategoriesTitleList'
@@ -13,10 +13,12 @@ import {Position} from '../api'
 
 const cateTabs = [
   {
-    title: '推荐'
+    title: '推荐',
+    value: ''
   },
   {
-    title: '最新'
+    title: '最新',
+    value: 'createTime'
   }
 ]
 
@@ -30,16 +32,25 @@ export default class HomeScreen extends PureComponent {
   state = {
     positionList: [],
     cateActiveIndex: 0,
-    refreshing: false
+    refreshing: false,
+    loading: false,
+    sort: ''
   }
+  currentPage = 1
 
-  async componentDidMount () {
+  fetchList = async (params) => {
     try {
-      const data = await Position.getList()
+      const {sort} = this.state
+      this.setState({loading: true})
+      const data = await Position.getList({type: 'Web', currentPage: this.currentPage, ...params})
       if (data.status === 200) {
-        this.setState({
-          positionList: data.data
-        })
+        setTimeout(() => {
+          this.setState({
+            positionList: this.currentPage === 1 ? data.list : [...this.state.positionList, ...data.list],
+            loading: false,
+            refreshing: false
+          })
+        }, 1000)
       }
     } catch (error) {
       throw error
@@ -50,7 +61,8 @@ export default class HomeScreen extends PureComponent {
     this.props.navigation.navigate('PositionDetail', {id: item.id})
   }
   tabsOnPress = (cateActiveIndex, item) => {
-    this.setState({cateActiveIndex})
+    this.setState({cateActiveIndex, sort: item.value, positionList: []})
+    this.fetchList({sort: item.value})
   }
   renderPositionItem = ({item}) => (
     <PositionItem {...item} onPress={this.itemOnPress} />
@@ -89,24 +101,51 @@ export default class HomeScreen extends PureComponent {
     )
   }
 
+  componentDidMount () {
+    const {sort} = this.state
+    this.fetchList()  
+  }
+
   onRefresh = () => {
-    this.setState({refreshing: true})
-    setTimeout(() => {
-      this.setState({refreshing: false})
-    }, 1000)
+    const {sort} = this.state
+    this.currentPage = 1
+    this.setState({refreshing: true}, () => {
+      this.fetchList()
+    })
+  }
+
+  handleLoadMore = () => {
+    const {sort} = this.state
+    this.currentPage++
+    this.fetchList()
+  }
+  renderFooter = () => {
+    const {loading} = this.state
+    if (loading) {
+      return (
+        <View style={{paddingVertical: 15}}>
+          <ActivityIndicator animating />
+        </View>
+      )
+    }
+    return null
   }
   
   render() {
-    const {cateActiveIndex, refreshing, positionList} = this.state
+    const {refreshing, positionList} = this.state
     return (
       <View style={styles.wrapper}>
-          <FlatList 
+          <FlatList
+          style={{flex: 1}} 
             data={positionList}
             renderItem={this.renderPositionItem}
             keyExtractor={this.keyExtractor}
             ListHeaderComponent={this.renderHeader}
             onRefresh={this.onRefresh}
             refreshing={refreshing}
+            onEndReached={this.handleLoadMore}
+            onEndReachedThreshold={.01}
+            ListFooterComponent={this.renderFooter}
           />
           
       </View>
@@ -156,7 +195,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 20,
-    height: 60,
+    height: 50,
     marginBottom: 2
   },
   tabsTitle: {

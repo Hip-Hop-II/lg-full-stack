@@ -11,41 +11,43 @@ export default class PositionItem extends PureComponent {
         <TouchableOpacity onPress={() => onPress(this.props)}>
         <View style={styles.header}>
           <View style={styles.headerLeft}>
-            <Text style={styles.headerLeftTitle}>{newProps.title.substr(0, 4)}<Text></Text></Text>
+            <Text ellipsizeMode="tail" numberOfLines={1} style={styles.headerLeftTitle}>{newProps.positionName}<Text></Text></Text>
             <View style={styles.hederLeftNoteWrapper}>
               <Text style={styles.headerLeftNote}>{newProps.city}</Text>
               <Text style={[styles.headerLeftNote, {marginHorizontal: 4}]}>|</Text>
-              <Text style={styles.headerLeftNote}>{newProps.address}</Text>
+              <Text style={styles.headerLeftNote}>{newProps.district || ''}</Text>
               <Text style={[styles.headerLeftNote, {marginHorizontal: 4}]}>|</Text>
-              <Text style={styles.headerLeftNote}>{newProps.experience}</Text>
+              <Text style={styles.headerLeftNote}>{newProps.workYear}</Text>
               <Text style={[styles.headerLeftNote, {marginHorizontal: 4}]}>|</Text>
               <Text style={styles.headerLeftNote}>{newProps.education}</Text>
             </View>
           </View>
           <View style={styles.headerRight}>
             <Text style={styles.headerRightSalary}>{newProps.salary}</Text>
-            <Text style={styles.headerRightTime}>{dayjs(newProps.createdAt).format('MM月DD日')}</Text>
+            <Text style={styles.headerRightTime}>{dayjs(newProps.createTime).format('MM月DD日')}</Text>
           </View>
         </View>
         <View style={styles.body}>
-          <View style={styles.bodyItem}>
-            <Text style={styles.bodyItemText}>WEB前端</Text>
-          </View>
+          {newProps.positionLables.length > 0 && newProps.positionLables.slice(0, 4).map((item, index) => (
+            <View style={styles.bodyItem} key={index}>
+              <Text style={styles.bodyItemText}>{item}</Text>
+            </View>
+          ))}
         </View>
         <View style={styles.footer}>
           <View style={styles.footerMedia}>
-            <Image style={{width: '100%', height: '100%'}} source={{uri: newProps.companyId.avatar}} />
+            <Image style={{width: '100%', height: '100%', borderRadius: 10}} source={{uri: `https://www.lgstatic.com/thumbnail_120x120/${newProps.companyLogo}`}} />
           </View>
           <View style={styles.footerRight}>
             <Text style={{color: colors.greyDark, fontWeight: '700'}}>
-              {newProps.companyId.name}
+              {newProps.companyShortName}
             </Text>
             <View style={styles.footerRightNoteWrapper}>
-              <Text style={{color: colors.greyLight, fontSize: 12}}>{newProps.companyId.financing}</Text>
+              <Text style={{color: colors.greyLight, fontSize: 12}}>{newProps.financeStage}</Text>
               <Text style={{color: colors.greyLight, fontSize: 12, marginHorizontal: 4}}>|</Text>
-              <Text style={{color: colors.greyLight, fontSize: 12}}>{newProps.companyId.peoples}</Text>
+              <Text style={{color: colors.greyLight, fontSize: 12}}>{newProps.companySize}</Text>
               <Text style={{color: colors.greyLight, fontSize: 12, marginHorizontal: 4}}>|</Text>
-              <Text style={{color: colors.greyLight, fontSize: 12}}></Text>
+              <Text ellipsizeMode="tail" numberOfLines={1} style={{color: colors.greyLight, fontSize: 12, width: 120}}>{newProps.positionLables.join(',')}</Text>
             </View>
           </View>
         </View>
@@ -76,7 +78,8 @@ const styles = StyleSheet.create({
   hederLeftNoteWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 6
+    marginTop: 6,
+    paddingRight: 25
   },
   headerLeftNote: {
     fontSize: 12,
@@ -96,14 +99,18 @@ const styles = StyleSheet.create({
   },
   body: {
     marginTop: 15,
-    marginBottom: 20
+    marginBottom: 20,
+    flexDirection: 'row',
+    flexWrap: 'nowrap',
   },
   bodyItem: {
-    width: 80,
     paddingHorizontal: 10,
     paddingVertical: 4,
     backgroundColor: colors.grey4,
     borderRadius: 4,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 8
     
   },
   bodyItemText: {
@@ -116,9 +123,6 @@ const styles = StyleSheet.create({
   footerMedia: {
     width: 50,
     height: 50,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: colors.grey1,
-    borderRadius: 10,
     marginRight: 10
   },
   footerRight: {
@@ -126,6 +130,8 @@ const styles = StyleSheet.create({
   },
   footerRightNoteWrapper: {
     flexDirection: 'row',
-    marginTop: 8
+    marginTop: 8,
+    paddingRight: 10,
+    alignItems: 'center'
   }
 })
