@@ -22,17 +22,17 @@ export async function requestData() {
       pn++
       const res = await request
         .post(
-          "https://www.lagou.com/gongsi/215-0-0-0.json"
+          "https://www.lagou.com/gongsi/4-0-0-0.json"
         )
         .send({ first: false, pn, sortField: 0, havemark: 0 })
         .set("Accept", "application/json")
         .set("Content-Type", "application/x-www-form-urlencoded")
         .set("Host", "www.lagou.com")
         .set("Origin", "https://www.lagou.com")
-        .set('Cookie', 'JSESSIONID=ABAAABAAAFCAAEGDC9AA7B01B25606EB720D0D6AAC7A3C7; _ga=GA1.2.1261068430.1539141596; _gid=GA1.2.1376984470.1539141596; user_trace_token=20181010111956-5cb12df5-cc3b-11e8-ae52-525400f775ce; LGUID=20181010111956-5cb130ad-cc3b-11e8-ae52-525400f775ce; index_location_city=%E5%85%A8%E5%9B%BD; Hm_lvt_4233e74dff0ae5bd0a3d81c6ccf756e6=1539141596,1539220167,1539220179; SEARCH_ID=04ca094836a24f2ba09a577e6bd5cf89; TG-TRACK-CODE=jobs_similar; LGSID=20181012154609-e1e5b93d-cdf2-11e8-b0df-525400f775ce; X_HTTP_TOKEN=10ba65b0af4a652e8788e2f44793f0ab; sensorsdata2015jssdkcross=%7B%22distinct_id%22%3A%22166674f8ee02b6-03dd4ae3f777e1-346a7809-2359296-166674f8ee1a37%22%2C%22%24device_id%22%3A%22166674f8ee02b6-03dd4ae3f777e1-346a7809-2359296-166674f8ee1a37%22%7D; sajssdk_2015_cross_new_user=1; LG_LOGIN_USER_ID=aa6bf93f25aae71dd8e783089c7b993f036349a83aac048b; _putrc=419520CBD841CB84; login=true; unick=%E5%A4%8F%E7%81%BF; showExpriedIndex=1; showExpriedCompanyHome=1; showExpriedMyPublish=1; hasDeliver=302; gate_login_token=47dbc6ba800eb178febbd878d57769698abc7641ac129811; _gat=1; LGRID=20181012162457-4e0583df-cdf8-11e8-bbbf-5254005c3644; Hm_lpvt_4233e74dff0ae5bd0a3d81c6ccf756e6=1539332698')
+        .set('Cookie', 'JSESSIONID=ABAAABAAAGFABEFC1EB72CA92DADD8E3F860B51DFA59EFC; _ga=GA1.2.201348545.1539181031; Hm_lvt_4233e74dff0ae5bd0a3d81c6ccf756e6=1539181031; user_trace_token=20181010221713-2ee350a4-cc97-11e8-af31-525400f775ce; LGUID=20181010221713-2ee353e4-cc97-11e8-af31-525400f775ce; index_location_city=%E5%85%A8%E5%9B%BD; TG-TRACK-CODE=index_navigation; X_HTTP_TOKEN=3620b95a9d9d5538eae2e2d17732ea53; _gid=GA1.2.219676920.153934344; sensorsdata2015jssdkcross=%7B%22distinct_id%22%3A%22166645861234e-0beaf68d48349f-346a749-46000-1666458613e32%22%2C%22%24device_id%22%3A%22166645861234e-0beaf68d48349f-346a749-46000-1666458613e32%22%7D; sajssdk_2015_cross_new_user=1; LG_LOGIN_USER_ID=3a1ee5f555041939038f2fc70f04d229172b71334221cfd9; _putrc=419520CBD841CB84; login=true; unick=%E5%A4%8F%E7%81%BF; showExpriedIndex=1; showExpriedCompanyHome=1; showExpriedMyPublish=1; hasDeliver=302; gate_login_token=c0fcf4ff321446a443fcb016cc444617e62421eb4645; LGSID=2018101220048-7b7ab3da-ce17-11e8-bbbf-5254005c3644; PRE_UTM=; PRE_HOST=; PRE_SITE=; PRE_LAND=https%3A%2F%2Fwww.lagou.com%2Fgongsi%2F6-0-0-0; _gat=1; Hm_lpvt_4233e74dff0ae5bd0a3d81c6ccf756e6=1539347515; LGRID=20181012203202-d20f846-ce1a-11e8-b10b-525400f775ce')
         .set(
           "Referer",
-          'https://www.lagou.com/gongsi/215-0-0-0'
+          'https://www.lagou.com/gongsi/4-0-0-0'
         )
         console.log(res.text)
       if (

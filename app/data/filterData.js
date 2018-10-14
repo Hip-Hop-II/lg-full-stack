@@ -6,41 +6,49 @@ export const filterData = [
       {
         id: 1,
         title: '未融资',
+        value: 'financeStage',
         parentId: 1
       },
       {
         id: 2,
         title: '天使轮',
+        value: 'financeStage',
         parentId: 1
       },
       {
         id: 3,
         title: 'A轮',
+        value: 'financeStage',
         parentId: 1
       },
       {
         id: 4,
         title: 'B轮',
+        value: 'financeStage',
         parentId: 1
       },
       {
         id: 5,
         title: 'C轮',
+        value: 'financeStage',
         parentId: 1
       },
       {
         id: 6,
         title: 'D轮及以上',
+        value: 'financeStage',
         parentId: 1
       },
       {
         id: 7,
         title: '上市公司',
+        value: 'financeStage',
         parentId: 1
       },
       {
         id: 8,
         title: '不需要融资',
+        value: 'financeStage',
         parentId: 1
       }
     ]
@@ -48,35 +56,42 @@ export const filterData = [
   {
     id: 2,
     title: '公司规模',
+    value: 'companySize',
     children: [
       {
         id: 1,
         title: '少于15人',
+        value: 'companySize',
         parentId: 2
       },
       {
         id: 2,
         title: '15-50人',
+        value: 'companySize',
         parentId: 2
       },
       {
         id: 3,
         title: '50-150人',
+        value: 'companySize',
         parentId: 2
       },
       {
         id: 4,
         title: '150-500人',
+        value: 'companySize',
         parentId: 2
       },
       {
         id: 5,
         title: '500-2000人',
+        value: 'companySize',
         parentId: 2
       },
       {
         id: 6,
         title: '2000人以上',
+        value: 'companySize',
         parentId: 2
       },
     ]

@@ -97,137 +97,135 @@ export async function getList(ctx: any): Promise<Object> {
 //   }, 10000)
 // }
 
-// export async function requestData() {
-//   const cityList = [
-//     {
-//       city: "北京"
-//     },
-//     {
-//       city: "上海"
-//     },
-//     {
-//       city: "深圳"
-//     },
-//     {
-//       city: "广州"
-//     },
-//     {
-//       city: "杭州"
-//     },
-//     {
-//       city: "成都"
-//     },
-//     {
-//       city: "南京"
-//     },
-//     {
-//       city: "武汉"
-//     },
-//     {
-//       city: "西安"
-//     },
-//     {
-//       city: "厦门"
-//     },
-//     {
-//       city: "长沙"
-//     },
-//     {
-//       city: "苏州"
-//     },
-//     {
-//       city: "天津"
-//     },
-//     {
-//       city: "重庆"
-//     },
-//     {
-//       city: "郑州"
-//     },
-//     {
-//       city: "青岛"
-//     },
-//     {
-//       city: "合肥"
-//     },
-//     {
-//       city: "福州"
-//     },
-//     {
-//       city: "济南"
-//     },
-//     {
-//       city: "大连"
-//     },
-//     {
-//       city: "珠海"
-//     },
-//     {
-//       city: "无锡"
-//     },
-//     {
-//       city: "佛山"
-//     },
-//     {
-//       city: "东莞"
-//     },
-//     {
-//       city: "宁波"
-//     },
-//     {
-//       city: "常州"
-//     },
-//     {
-//       city: "沈阳"
-//     },
-//     {
-//       city: "石家庄"
-//     },
-//     {
-//       city: "昆明"
-//     },
-//     {
-//       city: "南昌"
-//     },
-//     {
-//       city: "南宁"
-//     }
-//   ]
-//   const timer = setInterval(async () => {
-//     let pn = 0
-//     cityList.forEach(async item => {
-//       try {
-//         if (pn > 30) {
-//           clearInterval(timer)
-//         }
-//         pn++
-//         const res = await request
-//           .post(
-//             "https://www.lagou.com/jobs/positionAjax.json?px=default&needAddtionalResult=false"
-//           )
-//           .send({ first: false, pn })
-//           .set("Accept", "application/json")
-//           .set("Content-Type", "application/x-www-form-urlencoded")
-//           .set("Host", "www.lagou.com")
-//           .set("Origin", "https://www.lagou.com")
-//           .set(
-//             "Referer",
-//             `https://www.lagou.com/jobs/list_?px=default&city=${encodeURIComponent(
-//               item.city
-//             )}`
-//           )
-//         if (
-//           res &&
-//           JSON.parse(res.text) &&
-//           JSON.parse(res.text).content &&
-//           JSON.parse(res.text).content.positionResult
-//         ) {
-//           const {result} = JSON.parse(res.text).content.positionResult
-//           const pos = await LgPosition.create(...result)
-//         }
-//       } catch (error) {
-//         throw error
-//       }
-//     })
-//   }, 10000)
-// }
+export async function requestData() {
+  const cityList = [
+    {
+      city: "北京"
+    },
+    {
+      city: "上海"
+    },
+    {
+      city: "深圳"
+    },
+    {
+      city: "广州"
+    },
+    {
+      city: "杭州"
+    },
+    {
+      city: "成都"
+    },
+    {
+      city: "南京"
+    },
+    {
+      city: "武汉"
+    },
+    {
+      city: "西安"
+    },
+    {
+      city: "厦门"
+    },
+    {
+      city: "长沙"
+    },
+    {
+      city: "苏州"
+    },
+    {
+      city: "天津"
+    },
+    {
+      city: "重庆"
+    },
+    {
+      city: "郑州"
+    },
+    {
+      city: "青岛"
+    },
+    {
+      city: "合肥"
+    },
+    {
+      city: "福州"
+    },
+    {
+      city: "济南"
+    },
+    {
+      city: "大连"
+    },
+    {
+      city: "珠海"
+    },
+    {
+      city: "无锡"
+    },
+    {
+      city: "佛山"
+    },
+    {
+      city: "东莞"
+    },
+    {
+      city: "宁波"
+    },
+    {
+      city: "常州"
+    },
+    {
+      city: "沈阳"
+    },
+    {
+      city: "石家庄"
+    },
+    {
+      city: "昆明"
+    },
+    {
+      city: "南昌"
+    },
+    {
+      city: "南宁"
+    }
+  ]
+    let pn = 1
+    const timer = setInterval(async () => {
+    try {
+        if (pn > 30) {
+          clearInterval(timer)
+        }
+        pn++
+        const res = await request
+          .post(
+            `https://www.lagou.com/jobs/positionAjax.json?px=new&city=${encodeURIComponent("天津")}&needAddtionalResult=false`
+          )
+          .send({ first: false, pn })
+          .set("Accept", "application/json")
+          .set("Content-Type", "application/x-www-form-urlencoded")
+          .set("Host", "www.lagou.com")
+          .set("Origin", "https://www.lagou.com")
+          .set(
+            "Referer",
+            `https://www.lagou.com/jobs/list_?px=default&city=${encodeURIComponent(
+              '天津'
+            )}`
+          )
+        if (
+          res &&
+          JSON.parse(res.text) &&
+          JSON.parse(res.text).content &&
+          JSON.parse(res.text).content.positionResult
+        ) {
+          const {result} = JSON.parse(res.text).content.positionResult
+          const pos = await LgPosition.create(...result)
+        }
+      } catch (error) {
+        throw error
+      }
+    }, 10000)
+}

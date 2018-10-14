@@ -51,7 +51,10 @@ const LgPositionSchema = new mongoose.Schema({
   },
   plus: String,
   positionAdvantage: String,
-  positionId: Number,
+  positionId: {
+    unique: true,
+    type: Number
+  },
   positionLables: [String],
   positionName: String,
   promotionScoreExplain: String,

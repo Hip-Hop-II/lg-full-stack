@@ -7,6 +7,8 @@ import CityList from '../components/CityList'
 import CompanyItem from '../components/CompanyItem'
 import FilterList from '../components/FilterList'
 import SortList from '../components/SortList'
+import {Company} from '../api'
+import {getLocationAsync} from '../api/Location'
 
 
 export default class HomeScreen extends PureComponent {
@@ -16,12 +18,22 @@ export default class HomeScreen extends PureComponent {
       borderBottomWidth: 0
     }
   })
+  async componentWillMount () {
+    try {
+      const {city} = await getLocationAsync()
+      console.log(city)
+      this.setState({city: city})
+    } catch (error) {
+      throw error
+    }
+  }
+  
   state = {
     isCityOpen: false,
     isFilterOpen: false,
     isSortOpen: false,
     status: -1,
-    activeCity: '上海',
+    city: '上海',
     filterCheckedList: [
       {
         id: 1,
@@ -58,10 +70,20 @@ export default class HomeScreen extends PureComponent {
 
   cityOnPress = (item) => {
     this.setState({
-      activeCity: item.city,
+      city: item.city,
       isCityOpen: false,
       status: -1
     })
+  }
+
+  // 获取数据
+  fetchData = async () => {
+    const {city, checkedList} = this.state
+    try {
+      const result = await Company.geCompanytList({city, checkedList})
+    } catch (error) {
+      
+    }
   }
 
   /**
@@ -88,10 +110,10 @@ export default class HomeScreen extends PureComponent {
    * 
    */
   renderModule = () => {
-    const {status, activeCity, filterCheckedList} = this.state
+    const {status, city, filterCheckedList} = this.state
     if (status === 0) {
       return (
-        <CityList activeCity={activeCity} cityOnPress={this.cityOnPress} />
+        <CityList activeCity={city} cityOnPress={this.cityOnPress} />
       )
     } else if (status === 1) {
       return (
@@ -111,11 +133,11 @@ export default class HomeScreen extends PureComponent {
   }
 
   render() {
-    const {activeCity} = this.state
+    const {city} = this.state
     return (
       <View style={styles.wrapper}>
         <View style={styles.chooseWrapper}>
-          <DropDown text={activeCity} isOpen={this.state.isCityOpen} onPress={() => this.chooseOnPress(0)} />
+          <DropDown text={city} isOpen={this.state.isCityOpen} onPress={() => this.chooseOnPress(0)} />
           <DropDown text="筛选" isOpen={this.state.isFilterOpen} onPress={() => this.chooseOnPress(1)} />
           <DropDown text="排序" isOpen={this.state.isSortOpen} onPress={() => this.chooseOnPress(2)} />
         </View>
