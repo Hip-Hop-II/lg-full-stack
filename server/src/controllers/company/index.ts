@@ -1,14 +1,49 @@
 import Company from '../../models/Company'
 import request from 'superagent'
 import LgCompany from '../../models/LgCompany'
+import * as utils from '../../utils'
+
+
+function _getParamsValue (array: Array<Object>):Array<String> {
+  const arr = array.map(item => item.title)
+  return arr
+}
+function _parseParams (params: Object):Object {
+  const {city, financeStage, companySize, industryField} = params
+  console.log(financeStage)
+  let options = {}
+  if (financeStage.length > 0) {
+    options.financeStage = {
+      $in: _getParamsValue(financeStage)
+    }
+  } else if (companySize.length > 0) {
+    options.companySize = {
+      $in: _getParamsValue(companySize)
+    }
+  } else if (industryField.length > 0) {
+    options.industryField = {
+      $in: _getParamsValue(industryField)
+    }
+  }
+  options.city = city
+  return options
+}
 
 export async function getList(ctx: any) {
-  const lists = await Company.find({}).skip().limit(6)
-  if (lists) {
-    ctx.body = {
-      status: 200,
-      data: lists
+  try {
+    const {limit, skip, sort} = utils.formatQueryParams(ctx.request.query)
+    const queryParams = _parseParams(ctx.request.body)
+    const total = await LgCompany.count()
+    const list = await LgCompany.find(queryParams).limit(limit).skip(skip).sort(sort)
+    if (list) {
+      return ctx.body = { ...utils.getStatusAndError({ status: 200 }), list,
+        total,
+        currentPage: Math.floor(skip / limit) + 1,
+        pageSize: limit
+      }
     }
+  } catch (error) {
+    throw error
   }
 }
 

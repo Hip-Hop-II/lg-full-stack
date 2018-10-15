@@ -1,7 +1,7 @@
 import {AsyncStorage} from 'react-native'
 import queryString from 'query-string'
 
-const API_URL = 'http://192.168.1.4:4000'
+const API_URL = 'http://10.3.4.171:4000'
 
 
 function checkStatus (response) {
@@ -82,14 +82,22 @@ export const Position = {
       .then(parseJSON)
       .then(data => data)
       .catch(err => Promise.reject(err))
+  },
+  async getListByName (options) {
+    const params = await parseParams()
+    return fetch(`${API_URL}/position/names?${queryString.stringify(options)}`, params)
+      .then(checkStatus)
+      .then(parseJSON)
+      .then(data => data)
+      .catch(err => Promise.reject(err))
   }
 }
 
 export const Company = {
   async geCompanytList (options) {
-    const {type, city, ...newOptions} = options
-    const params = await parseParams({method: 'POST', body: JSON.stringify({type})})
-    return fetch(`${API_URL}/company/list?${queryString.stringify(newOptions)}`, params)
+    const {currentPage, ...newOptions} = options
+    const params = await parseParams({method: 'POST', body: JSON.stringify({...newOptions})})
+    return fetch(`${API_URL}/company/list?${queryString.stringify({currentPage})}`, params)
       .then(checkStatus)
       .then(parseJSON)
       .then(data => data)

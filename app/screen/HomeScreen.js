@@ -1,5 +1,5 @@
 import React, { PureComponent, Fragment } from 'react'
-import { Text, View, StyleSheet, Image, FlatList, ActivityIndicator } from 'react-native'
+import { Text, View, StyleSheet, Image, FlatList, ActivityIndicator, ImageBackground, Dimensions } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import SearchInput from '../components/SearchInput'
 import CategoriesTitleList from '../container/CategoriesTitleList'
@@ -21,6 +21,8 @@ const cateTabs = [
     value: 'createTime'
   }
 ]
+
+const WIDTH = Dimensions.get('window').width
 
 export default class HomeScreen extends PureComponent {
   static navigationOptions = {
@@ -73,9 +75,11 @@ export default class HomeScreen extends PureComponent {
     return (
       <Fragment>
       <View style={styles.carouselWrapper}>
+        <ImageBackground source={images.banner_img} style={{width: WIDTH, height: '100%'}} />
           <SearchInput
             style={styles.SearchInputWrapper}
             placeholder="趣头条"
+            onFocus={() => this.props.navigation.navigate('Search')}
           >
             <SearchInput.Icon>
               <Ionicons name="ios-search-outline" size={20} color={colors.grey1} />
@@ -115,9 +119,11 @@ export default class HomeScreen extends PureComponent {
   }
 
   handleLoadMore = () => {
-    const {sort} = this.state
-    this.currentPage++
-    this.fetchList()
+    if (!this.onEndReachedCalledDuringMomentum) {
+      this.currentPage++
+      this.fetchList()
+      this.onEndReachedCalledDuringMomentum = true
+    }
   }
   renderFooter = () => {
     const {loading} = this.state
@@ -146,6 +152,7 @@ export default class HomeScreen extends PureComponent {
             onEndReached={this.handleLoadMore}
             onEndReachedThreshold={.01}
             ListFooterComponent={this.renderFooter}
+            onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false}}
           />
           
       </View>
@@ -160,7 +167,6 @@ const styles = StyleSheet.create({
   },
   carouselWrapper: {
     height: 314,
-    backgroundColor: "red",
     position: "relative",
     alignItems: "center"
   },

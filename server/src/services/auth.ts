@@ -12,7 +12,7 @@ export async function checkAuth (ctx: any, next: Function): Promise<void> {
       const user = await User.findById({_id: decoded.id})
       if (user) {
         ctx._id = user._id
-        await next()
+        return await next()
       } else {
         ctx.status = 403
         ctx.body = utils.getStatusAndError({status: 403})
@@ -22,6 +22,7 @@ export async function checkAuth (ctx: any, next: Function): Promise<void> {
       ctx.body = utils.getStatusAndError({status: 403})
     }
   } catch (error) {
+    throw error
     ctx.status = 403
     ctx.body = utils.getStatusAndError({status: 403})
   }

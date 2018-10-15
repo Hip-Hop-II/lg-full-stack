@@ -12,6 +12,7 @@
     "@expo/vector-icons": "^6.3.1",
     "dayjs": "^1.7.7",
     "expo": "^30.0.1",
+    "lodash.debounce": "^4.0.8",
     "prop-types": "^15.6.2",
     "query-string": "^6.2.0",
     "react": "16.3.1",

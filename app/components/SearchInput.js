@@ -11,7 +11,7 @@ export default class Input extends PureComponent {
     <View style={styles.iconWrapper}>{props.children}</View>
   )
   render() {
-    const {value, style, placeholder, selectionColor, onChangeText, inputStyle} = this.props
+    const {value, style, placeholder, selectionColor, onChangeText, inputStyle, onFocus, autoFocus} = this.props
     return (
       <View style={[styles.wrapper, style]}>
         <TextInput 
@@ -21,6 +21,8 @@ export default class Input extends PureComponent {
         onChangeText={onChangeText}
         style={[styles.input, inputStyle]}
         value={value}
+        onFocus={onFocus}
+        autoFocus={autoFocus}
         />
         {this.props.children}
       </View>

@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { Text, View, StyleSheet, ScrollView } from 'react-native'
+import { Text, View, StyleSheet, ScrollView, AsyncStorage } from 'react-native'
 import ListColumn from '../../components/ListColumn'
 import {Ionicons} from '@expo/vector-icons'
 import {colors} from '../../utils/colors'
@@ -124,6 +124,15 @@ export default class SettingScreen extends PureComponent {
     })
   }
 
+  onPress = async () => {
+    try {
+      await AsyncStorage.removeItem('Authorization')
+      this.props.navigation.dispatch('logout')
+    } catch (error) {
+      
+    }
+  }
+
   render() {
     return (
       <View style={styles.wrapper}>
@@ -137,7 +146,7 @@ export default class SettingScreen extends PureComponent {
           <View style={styles.item}>
             {this.renderAbout()}
           </View>
-          <Button style={{backgroundColor: colors.white, height: 50}}>
+          <Button style={{backgroundColor: colors.white, height: 50}} onPress={this.onPress}>
             <Text style={{color: colors.danger, fontSize: 16}}>退出当前账号</Text>
           </Button>
         </ScrollView>

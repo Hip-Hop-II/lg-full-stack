@@ -4,38 +4,40 @@ import {colors} from '../utils/colors'
 
 export default class CompanyItem extends PureComponent {
   render() {
-    const {onPress} = this.props
+    const {onPress, ...newProps} = this.props
     return (
       <TouchableOpacity onPress={onPress}>
       <View style={styles.wrapper}>
-        <View style={styles.left}>
+        <View style={{alignItems: 'flex-start'}}>
           <View style={styles.leftWrapper}>
-          
+            <Image source={{uri: `https://www.lgstatic.com/thumbnail_120x120/${newProps.companyLogo}`}} 
+            style={{width: '100%', height: '100%', borderRadius: 10}}
+            />
           </View>
         </View>
         <View style={styles.right}>
-          <Text style={styles.title}>泛微</Text>
+          <Text style={styles.title}>{newProps.companyShortName}</Text>
           <View style={styles.advisory}>
             <View style={styles.auditionWrapper}>
               <Text style={styles.auditionText}>面试评分</Text>
             </View>
             <View style={styles.jobWrapper}>
               <Text style={styles.jobText}>在招职位</Text>
-              <Text style={styles.jobText}>966</Text>
+              <Text style={styles.jobText}>{newProps.positionNum}</Text>
             </View>
           </View>
           <View style={styles.componeyInfo}>
-            <Text style={styles.componeyInfoText}>上海</Text>
+            <Text style={styles.componeyInfoText}>{newProps.city}</Text>
             <Text style={[styles.componeyInfoText, {marginHorizontal: 6}]}>|</Text>
-            <Text style={styles.componeyInfoText}>2000人以上</Text>
+            <Text style={styles.componeyInfoText}>{newProps.financeStage}</Text>
             <Text style={[styles.componeyInfoText, {marginHorizontal: 6}]}>|</Text>
-            <Text style={styles.componeyInfoText}>移动互联网</Text>
+            <Text style={styles.componeyInfoText}>{newProps.companySize}</Text>
+            <Text style={[styles.componeyInfoText, {marginHorizontal: 6}]}>|</Text>
+            <Text ellipsizeMode="tail" numberOfLines={1} style={[styles.componeyInfoText, {width: 90}]}>{newProps.industryField}</Text>
           </View>
           <View style={styles.noteWrapper}>
-            {Array.from({length: 3}).map((item, index) => (
-              <View style={styles.noteItem}>
-                <Text style={styles.noteItemText}>技能培训</Text>
-              </View>
+            {newProps.otherLabel.split(',').slice(0, 4).map((item, index) => (
+                <Text ellipsizeMode="tail" numberOfLines={1} style={styles.noteItemText}>{item}</Text>
             ))}
           </View>
         </View>
@@ -54,12 +56,10 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white
   },
   leftWrapper: {
-    width: 75,
-    height: 75,
-    borderWidth: 1,
-    borderColor: colors.grey2,
-    borderRadius: 10,
+    width: 60,
+    height: 60,
     marginRight: 10,
+    alignSelf: 'flex-start'
   },
   right: {
     flex: 1
@@ -104,16 +104,16 @@ const styles = StyleSheet.create({
   },
   noteWrapper: {
     flexDirection: 'row',
-    flexWrap: 'wrap',
+    flexWrap: 'nowrap',
   },
   noteItem: {
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    backgroundColor: colors.grey3,
-    marginRight: 6,
-    borderRadius: 4
   },
   noteItemText: {
+    paddingHorizontal: 6,
+    paddingVertical: 4,
+    backgroundColor: colors.grey3,
+    marginRight: 4,
+    borderRadius: 4,
     fontSize: 12,
     color: colors.greyLight,
     fontWeight: '400'

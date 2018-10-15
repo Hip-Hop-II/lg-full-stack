@@ -4,13 +4,12 @@ import request from "superagent"
 import LgPosition from "../../models/LgPosition"
 import * as XLSX from "xlsx"
 import * as fs from "fs"
-import {formatQueryParams} from '../../utils'
 
 export async function getList(ctx: any): Promise<Object> {
   try {
     console.log(ctx.request.query)
     const {type} = ctx.request.body
-    const {limit, skip, sort} = formatQueryParams(ctx.request.query)
+    const {limit, skip, sort} = utils.formatQueryParams(ctx.request.query)
     console.log(sort)
     const total = await LgPosition.count()
     const reg = new RegExp(`${type}`, 'i')
@@ -58,6 +57,27 @@ export async function getList(ctx: any): Promise<Object> {
   // } catch (error) {
   //   throw error
   // }
+}
+
+export async function getListByName (ctx: any): Promise<Object> {
+  try {
+    const {name, city} = ctx.request.query
+    const nameReg = new RegExp(`${name}`, 'gi')
+    const list = await LgPosition.find({city, $or: [
+      {firstType: nameReg},
+      {secondType: nameReg},
+      {thirdType: nameReg},
+      {positionName: nameReg}
+    ]}, {
+      _id: 1,
+      positionName: 1
+    })
+    return ctx.body = {
+      ...utils.getStatusAndError({ status: 200 }),
+      list
+    }
+  } catch (error) {
+  }
 }
 
 // export async function getData(ctx: any): Promise<void> {

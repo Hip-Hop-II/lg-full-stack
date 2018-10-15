@@ -82,6 +82,9 @@ const MainNavigator = createStackNavigator({
     navigationOptions: {
       header: null
     }
+  },
+  Search: {
+    getScreen: () => require('../screen/SearchScreen').default
   }
 }, {
   navigationOptions: {

@@ -41,7 +41,7 @@ export default class FilterList extends PureComponent {
   }
 
   render() {
-    const {onPress, checkedList} = this.props
+    const {onPress, checkedList, submitOnPress} = this.props
     return (
       <View style={styles.wrapper}>
         <ScrollView contentContainerStyle={{paddingHorizontal: 20, paddingVertical: 30,}} 
@@ -61,7 +61,7 @@ export default class FilterList extends PureComponent {
           ))}
         </ScrollView>
         <View style={styles.buttonWrapper}>
-          <Button style={{height: 40, backgroundColor: colors.greenPrimary, borderWidth: 0, borderRadius: 2,}}>
+          <Button style={{height: 40, backgroundColor: colors.greenPrimary, borderWidth: 0, borderRadius: 2,}} onPress={submitOnPress}>
             <Text style={{fontSize: 16, color: colors.white}}>确定</Text>
           </Button>
         </View>
