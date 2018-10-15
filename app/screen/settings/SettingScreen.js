@@ -3,6 +3,7 @@ import { Text, View, StyleSheet, ScrollView, AsyncStorage } from 'react-native'
 import ListColumn from '../../components/ListColumn'
 import {Ionicons} from '@expo/vector-icons'
 import {colors} from '../../utils/colors'
+import {NavigationActions} from 'react-navigation'
 import HeaderButton from '../../components/buttons/HeaderButton'
 import Button from '../../components/buttons/Button'
 
@@ -127,9 +128,9 @@ export default class SettingScreen extends PureComponent {
   onPress = async () => {
     try {
       await AsyncStorage.removeItem('Authorization')
-      this.props.navigation.dispatch('logout')
+      this.props.navigation.dispatch(NavigationActions.navigate({routeName: 'Auth'}))
     } catch (error) {
-      
+      throw error
     }
   }
 

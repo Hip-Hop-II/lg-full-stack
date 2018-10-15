@@ -15,5 +15,5 @@ const loggerMiddleware = createLogger({predicate: (getState, action) => __DEV__}
 
 export const store = createStore(
   reducer,
-  compose(applyMiddleware(thunkMiddleware, loggerMiddleware, navigationMiddleware))
+  compose(applyMiddleware(thunkMiddleware, navigationMiddleware))
 )
