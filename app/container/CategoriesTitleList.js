@@ -6,16 +6,21 @@ import {colors} from '../utils/colors'
 const categories = [
   {
     title: '热门职位',
-    icon: <MaterialCommunityIcons name="fire" size={24} color={colors.orange1} />
+    icon: <MaterialCommunityIcons name="fire" size={24} color={colors.orange1} />,
+    link: 'FireOrHigh',
+    value: 'Fire'
   },
   {
     title: '拉勾猎头',
-    icon: <MaterialCommunityIcons name="crown" size={24} color={colors.yellow1} />
+    icon: <MaterialCommunityIcons name="crown" size={24} color={colors.yellow1} />,
+    link: 'FireOrHigh'
   },
   {
     title: '高薪优选',
-    icon: <MaterialCommunityIcons name="blur" size={24} color={colors.yellow2} />
-  },
+    icon: <MaterialCommunityIcons name="blur" size={24} color={colors.yellow2} />,
+    link: 'FireOrHigh',
+    value: 'Salary'
+  }
 ]
 
 export default class CategoriesTitleList extends PureComponent {
@@ -23,7 +28,7 @@ export default class CategoriesTitleList extends PureComponent {
     return (
       <View style={styles.wrapper}>
         {categories.map((item, index) => (
-          <TouchableOpacity key={index} style={styles.item}>
+          <TouchableOpacity key={index} style={styles.item} onPress={() => this.props.navigation.navigate(item.link, {value: item.value, title: item.title})}>
             {item.icon}
             <Text style={styles.text}>{item.title}</Text>
           </TouchableOpacity>

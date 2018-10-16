@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react'
-import { Text, View, StyleSheet } from 'react-native'
+import { Text, View, StyleSheet, ScrollView } from 'react-native'
 import {colors} from '../../utils/colors'
 import {Ionicons} from '@expo/vector-icons'
 import BackButton from '../../container/BackButton'
 import HeaderButton from '../../components/buttons/HeaderButton'
-import CityList from '../../components/CityList'
+import PositionCard from '../../components/PositionCard'
 
 export default class PositionDetailScreen extends PureComponent {
   static navigationOptions = ({navigation}) => ({
@@ -21,8 +21,11 @@ export default class PositionDetailScreen extends PureComponent {
     const {activePovinceIndex} = this.state
     return (
       <View style={styles.wrapper}>
-        <CityList activePovinceIndex={activePovinceIndex} provinceOnPress={(activePovinceIndex) => this.setState({activePovinceIndex})} />
-        <Text> textInComponent </Text>
+        <ScrollView>
+          <View style={styles.content}>
+            <PositionCard />
+          </View>
+        </ScrollView>
       </View>
     )
   }
@@ -30,6 +33,10 @@ export default class PositionDetailScreen extends PureComponent {
 
 const styles = StyleSheet.create({
   wrapper: {
-    flex: 1
+    flex: 1,
+    backgroundColor: colors.grey2
+  },
+  content: {
+    marginTop: 10,
   }
 })

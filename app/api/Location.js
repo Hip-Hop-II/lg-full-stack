@@ -7,7 +7,7 @@ export const getLocationAsync = async() => {
     if (status === 'granted') {
       const location = await Location.getCurrentPositionAsync({})
       let city = '北京'
-      let c = await Location.reverseGeocodeAsync(location).city
+      let c = await Location.reverseGeocodeAsync(location)
       CITYLIST.forEach(item => {
         if (item.children && item.children.length > 0) {
           item.children.forEach(e => {

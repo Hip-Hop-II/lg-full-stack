@@ -83,10 +83,14 @@ const MainNavigator = createStackNavigator({
       header: null
     }
   },
+  FireOrHigh: {
+    getScreen: () => require('../screen/FireOrHighScreen').default
+  },
   Search: {
     getScreen: () => require('../screen/SearchScreen').default
   }
 }, {
+  initialRouteName: 'PositionDetail',
   navigationOptions: {
    
   }

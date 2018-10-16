@@ -1,7 +1,6 @@
 import React, { PureComponent } from "react"
-import { Text, View, StyleSheet, ScrollView } from "react-native"
+import { Text, View, StyleSheet, ScrollView, RefreshControl } from "react-native"
 import { Ionicons } from "@expo/vector-icons"
-import { SafeAreaView } from "react-navigation"
 import ProfileItem from "../container/ProfileItem"
 import ProfileButtonList from '../container/ProfileButtonList'
 import ListColumn from '../components/ListColumn'
@@ -55,20 +54,36 @@ export default class HomeScreen extends PureComponent {
     )
   }
   state = {
-    userInfo: {}
+    userInfo: {},
+    refreshing: false
   }
   async componentDidMount () {
+    this.fetchData()
+  }
+
+  fetchData = async () => {
     try {
+      this.setState({refreshing: true})
       const data = await User.getUserInfo()
       if (data.status === 200) {
-        this.setState({
-          userInfo: data.data
-        })
+        setTimeout(() => {
+          this.setState({
+            userInfo: data.data,
+            refreshing: false
+          })
+        }, 1000)
       }
     } catch (error) {
-      throw error
+      this.setState({
+        refreshing: false
+      })
     }
   }
+
+  handleRefresh = () => {
+    this.fetchData()
+  }
+
   profileOnPress = () => {
 
   }
@@ -98,7 +113,14 @@ export default class HomeScreen extends PureComponent {
   render() {
     return (
       <View style={styles.wrapper}>
-        <ScrollView>
+        <ScrollView 
+        refreshControl={
+          <RefreshControl 
+          refreshing={this.state.refreshing}
+          onRefresh={this.handleRefresh}
+          />
+        }
+        >
           <View style={styles.profileItem}>
             <ProfileItem onPress={this.profileOnPress} {...this.state.userInfo} />
           </View>

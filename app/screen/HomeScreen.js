@@ -5,6 +5,9 @@ import SearchInput from '../components/SearchInput'
 import CategoriesTitleList from '../container/CategoriesTitleList'
 import CateTabs from '../components/CateTabs'
 import PositionItem from '../components/PositionItem'
+import {getLocationAsync} from '../api/Location'
+import {connect} from 'react-redux'
+import {getUserLocation} from '../redux/actions/user'
 
 import { colors } from '../utils/colors'
 import { images } from '../utils/images'
@@ -24,7 +27,7 @@ const cateTabs = [
 
 const WIDTH = Dimensions.get('window').width
 
-export default class HomeScreen extends PureComponent {
+class HomeScreen extends PureComponent {
   static navigationOptions = {
     tabBarLabel: '首页',
     tabBarIcon: ({ tintColor }) => (
@@ -36,9 +39,20 @@ export default class HomeScreen extends PureComponent {
     cateActiveIndex: 0,
     refreshing: false,
     loading: false,
-    sort: ''
+    sort: '',
+    city: ''
   }
   currentPage = 1
+
+  async componentWillMount () {
+    try {
+      const {city} = await getLocationAsync()
+      this.props.getUserLocation({city})
+      this.setState({city: city})
+    } catch (error) {
+      throw error
+    }
+  }
 
   fetchList = async (params) => {
     try {
@@ -93,7 +107,7 @@ export default class HomeScreen extends PureComponent {
             </View>
           </View>
           <View style={styles.categoriesWrapper}>
-            <CategoriesTitleList />
+            <CategoriesTitleList navigation={this.props.navigation} />
           </View>
           <View style={styles.tabsWrapper}>
             <Text style={styles.tabsTitle}>Web前端</Text>
@@ -159,6 +173,8 @@ export default class HomeScreen extends PureComponent {
     )
   }
 }
+
+export default connect(undefined, {getUserLocation})(HomeScreen)
 
 const styles = StyleSheet.create({
   wrapper: {

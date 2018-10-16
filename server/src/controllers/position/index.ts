@@ -5,19 +5,29 @@ import LgPosition from "../../models/LgPosition"
 import * as XLSX from "xlsx"
 import * as fs from "fs"
 
-export async function getList(ctx: any): Promise<Object> {
-  try {
-    console.log(ctx.request.query)
-    const {type} = ctx.request.body
-    const {limit, skip, sort} = utils.formatQueryParams(ctx.request.query)
-    console.log(sort)
-    const total = await LgPosition.count()
+function _parseParams (params) {
+  let queryFields = {}
+  const {type, ...newParams} = params
+  if ('type' in params) {
     const reg = new RegExp(`${type}`, 'i')
-    const list = await LgPosition.find({$or: [
+    queryFields['$or'] = [
       {firstType: reg},
       {secondType: reg},
-      {thirdType: reg},
-    ]})
+      {thirdType: reg}
+    ]
+  }
+  return {
+    ...newParams,
+    ...queryFields
+  }
+}
+
+export async function getList(ctx: any): Promise<Object> {
+  try {
+    const queryFields = _parseParams(ctx.request.body)
+    const {limit, skip, sort} = utils.formatQueryParams(ctx.request.query)
+    const total = await LgPosition.count()
+    const list = await LgPosition.find(queryFields)
       .limit(limit).skip(skip).sort(sort)
     if (list) {
       return ctx.body = { ...utils.getStatusAndError({ status: 200 }), list,
