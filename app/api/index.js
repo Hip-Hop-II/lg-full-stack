@@ -1,8 +1,8 @@
 import {AsyncStorage} from 'react-native'
 import queryString from 'query-string'
 
-// const API_URL = 'http://192.168.1.4:4000'
-const API_URL = 'http://10.3.4.171:4000'
+const API_URL = 'http://192.168.1.4:4000'
+// const API_URL = 'http://10.3.4.171:4000'
 
 
 function checkStatus (response) {
