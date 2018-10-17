@@ -103,7 +103,8 @@ export default class PositionDetailScreen extends PureComponent {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    backgroundColor: colors.grey2
+    backgroundColor: colors.grey2,
+    paddingBottom: 96
   },
   content: {
     marginTop: 10,
@@ -145,7 +146,7 @@ const styles = StyleSheet.create({
     color: colors.greyLight
   },
   companyWrapper: {
-    marginTop: 40,
+    marginVertical: 40,
     paddingHorizontal: 20
   },
   iconButtonWrapper: {

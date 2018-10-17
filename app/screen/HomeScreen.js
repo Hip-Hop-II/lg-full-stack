@@ -179,7 +179,7 @@ export default connect(undefined, {getUserLocation})(HomeScreen)
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    backgroundColor: colors.grey2
+    backgroundColor: colors.grey4
   },
   carouselWrapper: {
     height: 314,

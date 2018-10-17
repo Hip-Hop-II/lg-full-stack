@@ -70,4 +70,15 @@ const LgPositionSchema = new mongoose.Schema({
   workYear: String
 })
 
+LgPositionSchema.statics = {
+  // 收藏 + 1
+  async increaseFavorite (positionId) {
+    return this.findByIdAndUpdate(positionId, {$inc: {score: 1}}, {new: true})
+  },
+  // 收藏 - 1
+  async decreaseFavorite (positionId) {
+    return this.findByIdAndUpdate(positionId, {$inc: {score: -1}}, {new: true})
+  }
+}
+
 export default mongoose.model('lgPosition', LgPositionSchema)

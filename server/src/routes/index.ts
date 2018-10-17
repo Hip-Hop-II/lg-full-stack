@@ -14,5 +14,7 @@ export default (router:any) => {
   // router.get('/position/data', Controllers.Position.getData)
   // router.get('/position/requestData', Controllers.Position.requestData)
 
+  router.post('/position/favorite', checkAuth, Controllers.FavoritePosition.facoritePosition)
+
   return router
 }

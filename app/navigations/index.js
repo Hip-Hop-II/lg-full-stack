@@ -90,7 +90,6 @@ const MainNavigator = createStackNavigator({
     getScreen: () => require('../screen/SearchScreen').default
   }
 }, {
-  initialRouteName: 'PositionDetail',
   navigationOptions: {
    
   }

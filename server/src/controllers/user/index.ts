@@ -1,4 +1,5 @@
 import User from '../../models/User'
+import FavoritePosition from '../../models/FavoritePosition'
 import {avatar_img} from '../../utils/images'
 
 export async function signin (ctx: any):Promise<Object> {
@@ -35,7 +36,9 @@ export async function signup (ctx: any) {
   try {
     const {username, email, password} = ctx.request.body
     const user = await User.create({username, email, password, avatar: avatar_img})
-
+    await FavoritePosition.create({
+      userId: user._id
+    })
     ctx.body = {
       status: 200,
       data: user.createToken()

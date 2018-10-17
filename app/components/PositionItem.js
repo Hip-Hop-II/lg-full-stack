@@ -60,7 +60,7 @@ export default class PositionItem extends PureComponent {
 const styles = StyleSheet.create({
   wrapper: {
     padding: 20,
-    backgroundColor: colors.grey2,
+    backgroundColor: colors.white,
     marginBottom: 10
   },
   header: {
