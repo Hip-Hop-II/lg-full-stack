@@ -64,6 +64,9 @@ const TabNavigator = createBottomTabNavigator(
 const ProfileStack = createStackNavigator({
   Settings: {
     getScreen: () => require('../screen/settings/SettingScreen').default
+  },
+  MyAccount: {
+    getScreen: () => require('../screen/settings/MyAccountScreen').default
   }
 })
 

@@ -64,7 +64,7 @@ export default class SettingScreen extends PureComponent {
   renderAccount = () => {
     return AccountList.map((item, index) => {
       return (
-        <ListColumn key={index} link border >
+        <ListColumn key={index} link border  onPress={() => this.props.navigation.navigate(item.link)}>
           <ListColumn.Left>
             <View style={styles.columnLeft}>
               <View style={{flex: 1}}>

@@ -98,7 +98,7 @@ export default class SignupScreen extends PureComponent {
         this.props.navigation.navigate('Main')
       }
     } catch (error) {
-      
+      throw error
     }
   }
 

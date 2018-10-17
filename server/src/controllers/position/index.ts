@@ -2,6 +2,7 @@ import Position from "../../models/Position"
 import * as utils from "../../utils"
 import request from "superagent"
 import LgPosition from "../../models/LgPosition"
+import FavoritePosition from '../../models/FavoritePosition'
 import * as XLSX from "xlsx"
 import * as fs from "fs"
 
@@ -24,17 +25,26 @@ function _parseParams (params) {
 
 export async function getList(ctx: any): Promise<Object> {
   try {
+    const userId = ctx._id
     const queryFields = _parseParams(ctx.request.body)
     const {limit, skip, sort} = utils.formatQueryParams(ctx.request.query)
     const total = await LgPosition.count()
-    const list = await LgPosition.find(queryFields)
+    const p1 = await LgPosition.find(queryFields)
       .limit(limit).skip(skip).sort(sort)
-    if (list) {
-      return ctx.body = { ...utils.getStatusAndError({ status: 200 }), list,
-        total,
-        currentPage: Math.floor(skip / limit) + 1,
-        pageSize: limit
+    const p2 = await FavoritePosition.findOne({userId})
+    const [positionList, favorites] = await Promise.all([p1, p2])
+    // 判断当前职位是否收藏
+    const list = positionList.map((position, index) => {
+      const ps = position.toJSON()
+      return {
+        ...ps,
+        isFavorited: favorites.positioies.some(p => p.equals(ps._id))
       }
+    })
+    return ctx.body = { ...utils.getStatusAndError({ status: 200 }), list,
+      total,
+      currentPage: Math.floor(skip / limit) + 1,
+      pageSize: limit
     }
   } catch (error) {
     throw error

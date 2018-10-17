@@ -6,6 +6,8 @@ import ProfileButtonList from '../container/ProfileButtonList'
 import ListColumn from '../components/ListColumn'
 import { colors } from "../utils/colors"
 import {User} from '../api'
+import {connect} from 'react-redux'
+import {getUserInfo} from '../redux/actions/user'
 
 const baseStyle = {
   size: 26,
@@ -46,7 +48,7 @@ const LIST = [
   }
 ]
 
-export default class HomeScreen extends PureComponent {
+class ProfileScreen extends PureComponent {
   static navigationOptions = {
     tabBarLabel: "消息",
     tabBarIcon: ({ tintColor }) => (
@@ -54,7 +56,6 @@ export default class HomeScreen extends PureComponent {
     )
   }
   state = {
-    userInfo: {},
     refreshing: false
   }
   async componentDidMount () {
@@ -64,11 +65,10 @@ export default class HomeScreen extends PureComponent {
   fetchData = async () => {
     try {
       this.setState({refreshing: true})
-      const data = await User.getUserInfo()
-      if (data.status === 200) {
+      const result = await this.props.getUserInfo()
+      if (result.status === 200) {
         setTimeout(() => {
           this.setState({
-            userInfo: data.data,
             refreshing: false
           })
         }, 1000)
@@ -122,7 +122,7 @@ export default class HomeScreen extends PureComponent {
         }
         >
           <View style={styles.profileItem}>
-            <ProfileItem onPress={this.profileOnPress} {...this.state.userInfo} />
+            <ProfileItem onPress={this.profileOnPress} {...this.props.user.user} />
           </View>
           <View style={styles.profileButtons}>
             <ProfileButtonList navigation={this.props.navigation} />
@@ -136,6 +136,10 @@ export default class HomeScreen extends PureComponent {
     )
   }
 }
+
+export default connect(state => ({
+  user: state.user
+}), {getUserInfo})(ProfileScreen)
 
 const styles = StyleSheet.create({
   wrapper: {
