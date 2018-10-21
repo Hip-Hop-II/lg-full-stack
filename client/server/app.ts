@@ -20,7 +20,7 @@ app.prepare().then(() => {
   server.get('*', (req, res) => {
     return handle(req, res)
   })
-  server.listen(5000, err => {
+  server.listen(8888, err => {
     if (err) {
       throw err
     }
