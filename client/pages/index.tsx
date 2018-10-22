@@ -4,6 +4,12 @@ import Layout from '../components/Layout'
 import Input from '../components/Input'
 import Button from '../components/Button'
 import CateList from '../components/CateList'
+import Tabs from '../components/Tabs'
+import PositionItem from '../components/PositionItem'
+import CompanyItem from '../components/CompanyItem'
+import positionList from '../mock/position'
+import companyList from '../mock/company'
+import LoadMoreButton from '../components/LoadMoreButton'
 
 const fireList = [
   {
@@ -36,8 +42,47 @@ const fireList = [
   }
 ]
 
+const positionTabs = [
+  {
+    title: '热门职位',
+    value: 'hot'
+  },
+  {
+    title: '最新职位',
+    value: 'createTime'
+  }
+]
+
+const companyTabs = [
+  {
+    title: '热门公司',
+    value: 'hot'
+  }
+]
+const linkTabs = [
+  {
+    title: '友情链接',
+    value: 'hot'
+  }
+]
+
 class App extends React.PureComponent {
+  state = {
+    currentPositionIndex: 0,
+    currentCompanyIndex: 0
+  }
+  private positionTabClick = (item, index) => {
+    this.setState({
+      currentPositionIndex: index
+    })
+  }
+  private companyTabClick = (item, index) => {
+    this.setState({
+      currentPositionIndex: index
+    })
+  }
   render () {
+    const {currentPositionIndex, currentCompanyIndex} = this.state
     return (
       <Layout>
         <div className="container">
@@ -60,10 +105,59 @@ class App extends React.PureComponent {
             </div>
           </div>
           <section className="main">
-              <div className="cate-wrapper">
+            <div className="cate-wrapper">
+              <div className="slide">
                 <CateList />
               </div>
+              <main className="cate-content">
+                <Link href="/company">
+                  <a style={{display: 'inline-block', width: '840px', height: '346px'}}>
+                  <img style={{maxWidth: '100%'}} src="/static/banner1.png" alt="banner" />
+                  </a>
+                </Link>
+              </main>
+            </div>
+            <section className="position-wrapper">
+              <div className="position-heading">
+                <Tabs tabs={positionTabs} currentIndex={currentPositionIndex}
+                tabClick={this.positionTabClick}
+                />
+              </div>
+              <div className="position-body">
+                <ul className="position-body__list">
+                  {positionList.map((item, index) => (
+                    <PositionItem {...item} key={index} />
+                  ))}
+                </ul>
+              </div>
+              <div className="position-footer">
+                <LoadMoreButton />
+              </div>
             </section>
+            <section className="company-wrapper">
+              <div className="company-heading">
+                <Tabs tabs={companyTabs} currentIndex={currentCompanyIndex}
+                tabClick={this.companyTabClick}
+                />
+              </div>
+              <div className="company-body">
+                <ul className="company-body__list">
+                  {companyList.map((item, index) => (
+                    <CompanyItem {...item} key={index} />
+                  ))}
+                </ul>
+              </div>
+              <div className="company-footer">
+                <LoadMoreButton />
+              </div>
+            </section>
+            <section className="links-wrapper">
+              <div className="links-heading">
+                <Tabs tabs={linkTabs}
+                />
+              </div>
+            </section>
+          </section>
           <style jsx>{`
             .search-wrapper {
               min-width: 1200px;
@@ -98,8 +192,36 @@ class App extends React.PureComponent {
               padding: 30px 0;
             }
             .cate-wrapper {
+              display: flex;
               width: 1200px;
+              alignItems: center;
               margin: 0 auto;
+            }
+            .cate-content {
+              margin-left: 60px;
+              margin-top: 11px;
+            }
+            .links-wrapper,
+            .company-wrapper,
+            .position-wrapper {
+              width: 1200px;
+              margin: 53px auto 20px;
+            }
+            .links-heading,
+            .company-heading,
+            .position-heading {
+              border-bottom: 1px solid #e8e8e8;
+            }
+            .company-body__list,
+            .position-body__list {
+              display: flex;
+              flex-wrap: wrap;
+              justify-content: space-between;
+            }
+            .company-footer,
+            .position-footer {
+              margin: 16px auto 0;
+              text-align: center;
             }
           `}</style>
         </div>

@@ -1,0 +1,57 @@
+const NUM = 9
+
+const positionList = []
+
+Array.from({length: NUM}).forEach(element => {
+  positionList.push({
+    adWord: 0,
+    appShow: 0,
+    approve: 1,
+    businessZones: ['中关村'],
+    companyLabelList: [],
+    deliver: 0,
+    industryLables: [],
+    isSchoolJob: 0,
+    pcShow: 0,
+    positionLables: ['SDK', 'Hybird'],
+    skillLables: ['SDK', 'Hybird'],
+    companyId: 373781,
+    companyShortName: '葡萄智学',
+    createTime: '2018-10-11T13:41:56.000+08:00',
+    positionId: 5134071,
+    score: 0,
+    workYear: '3-5年',
+    education: '本科',
+    city: '北京',
+    positionName: 'Android高级开发工程师',
+    companyLogo: 'https://www.lgstatic.com/thumbnail_100x100/i/image2/M00/49/02/CgotOVrhmQaARXFQAAEwU1iXzUc746.png',
+    positionAdvantage: '技术大牛多,互联网教育,发展空间大,团队氛围好',
+    salary: '20k-35k',
+    financeStage: '未融资',
+    industryField: '其他',
+    jobNature: '全职',
+    companySize: '15-50人',
+    publisherId: 4176344,
+    district: '海淀区',
+    longitude: '116.33396',
+    latitude: '39.986955',
+    formatCreateTime: '13:41发布',
+    companyFullName: '北京葡萄智学科技有限公司',
+    resumeProcessRate: 0,
+    resumeProcessDay: 0,
+    imState: 'today',
+    explain: null,
+    plus: null,
+    gradeDescription: null,
+    promotionScoreExplain: null,
+    firstType: '开发|测试|运维类',
+    secondType: '移动前端开发',
+    subwayline: '10号线',
+    stationname: '五道口',
+    linestaion: '10号线_知春里;10号线_知春路;13号线_知春路;13号线_五道口',
+    thirdType: 'Android',
+    hitags: null,
+    __v: 0
+  })
+})
+export default positionList

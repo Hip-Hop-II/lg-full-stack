@@ -9,7 +9,6 @@ export default ({placeholder, value, onChange, width, className}) => (
     />
     <style jsx>{`
       .wrapper-input {
-        height: 20px;
         line-height: 20px;
         padding: 12px 16px;
         transition: all .4s ease;

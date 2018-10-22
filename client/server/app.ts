@@ -16,6 +16,12 @@ app.prepare().then(() => {
   server.get('/static/*', (req, res) => {
     handle(req, res);
   })
+  server.get('/zhaopin/:id', (req, res) => {
+    const actualPage = '/position-detail'
+    console.log(req.params)
+    const queryParams = {title: req.params.id}
+    app.render(req, res, actualPage, queryParams)
+  })
 
   server.get('*', (req, res) => {
     return handle(req, res)

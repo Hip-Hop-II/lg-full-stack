@@ -27,7 +27,8 @@ footer, header, hgroup, menu, nav, section {
   display: block;
 }
 html, body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Hiragino Sans GB","Microsoft Yahei",SimSun,Arial,"Helvetica Neue",Helvetica;
+  font-weight: 400;
   font-size: 14px;
 }
 body {
@@ -56,6 +57,18 @@ a {
 }
 a:hover {
   opacity: .7;
+}
+
+.arrow {
+  display: inline-block;
+  width: 6px;
+  height: 11px;
+  background: url("/static/arrow.png") no-repeat;
+  background-size: cover;
+}
+
+* {
+  box-sizing: border-box;
 }
 `
 
