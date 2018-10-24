@@ -5,7 +5,13 @@ class Company extends PureComponent {
   render() {
     return (
       <Layout>
-        <div>hello Company</div>
+        <section className="banner"></section>
+        <style jsx>{`
+        .banner {
+          background-color: #00b38a;
+          height: 387px;
+        }
+        `}</style>
       </Layout>
     )
   }

@@ -69,7 +69,8 @@ const linkTabs = [
 class App extends React.PureComponent {
   state = {
     currentPositionIndex: 0,
-    currentCompanyIndex: 0
+    currentCompanyIndex: 0,
+    inputValue: ''
   }
   private positionTabClick = (item, index) => {
     this.setState({
@@ -80,6 +81,9 @@ class App extends React.PureComponent {
     this.setState({
       currentPositionIndex: index
     })
+  }
+  get _getOutputValue () {
+    return (Number(this.state.inputValue)/2/23.4375).toFixed(3)
   }
   render () {
     const {currentPositionIndex, currentCompanyIndex} = this.state
@@ -116,6 +120,15 @@ class App extends React.PureComponent {
                   </a>
                 </Link>
               </main>
+            </div>
+            <div className="pxRem">
+              <div className="pxRem-input">
+                  <span>输入值：</span>
+                  <Input placeholder="输入值...." value={this.state.inputValue} onChange={value => this.setState({inputValue: value})} />
+              </div>
+              <div className="pxRem-output" style={{marginTop: 20}}>
+                  <span>输出值：{this._getOutputValue}rem</span>
+              </div>
             </div>
             <section className="position-wrapper">
               <div className="position-heading">
@@ -159,6 +172,10 @@ class App extends React.PureComponent {
             </section>
           </section>
           <style jsx>{`
+            .pxRem {
+              width: 1200px;
+              margin: 0 auto;
+            }
             .search-wrapper {
               min-width: 1200px;
               background-color: #F2F5F4;

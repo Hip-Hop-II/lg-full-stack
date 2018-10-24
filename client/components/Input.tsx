@@ -1,11 +1,19 @@
 import React, {Fragment} from 'react'
 
-export default ({placeholder, value, onChange, width, className}) => (
+type Props = {
+  placeholder?: string;
+  value?: any;
+  onChange?: (any) => void;
+  width?: number;
+  className?: string;
+}
+
+export default (props: Props) => (
   <Fragment>
-    <input placeholder={placeholder} value={value} 
-    onChange={onChange}
-    style={{width: `${width}px`}}
-    className={`wrapper-input ${className}`}
+    <input placeholder={props.placeholder} value={props.value} 
+    onChange={(event) => props.onChange(event.target.value)}
+    style={{width: `${props.width}px`}}
+    className={`wrapper-input ${props.className}`}
     />
     <style jsx>{`
       .wrapper-input {
