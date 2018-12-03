@@ -37,7 +37,7 @@ export default (props) => (
         </a>
       </Link>
     </div>
-    <style jsx>{`
+    <style jsx scoped>{`
       .wrapper {
         flex: 0 1 288px;
         border: 1px solid #eee;

@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react'
 import Layout from '../components/Layout'
 import MultipleSelector from '../components/MultipleSelector'
+import CompanyItem from '../components/CompanyItem'
+import companyList from '../mock/company'
 
 const FinancingOptions = [
   {
@@ -213,14 +215,14 @@ class Company extends PureComponent<State> {
     }
   }
   // 城市选择点击时
-  workcityClick = (index: Number) => {
+  workcityClick = (current: {title: String}, index: Number) => {
     const {workcitySelectedIndex} = this.state
     if (index !== workcitySelectedIndex) {
       this.setState({workcitySelectedIndex: index})
     }
   }
   // 排序
-  orderClick = (index: Number) => {
+  orderClick = (current: {title: String}, index: Number) => {
     const {orderSelectedIndex} = this.state
     if (index !== orderSelectedIndex) {
       this.setState({orderSelectedIndex: index})
@@ -280,9 +282,16 @@ class Company extends PureComponent<State> {
                   />
                 </div>
             </div>
+            <div className="company-wrapper">
+              <ul>
+              {companyList.map((item, index) =>(
+                <CompanyItem {...item} key={index} />
+              ))}
+              </ul>
+            </div>
           </div>
         </section>
-        <style jsx>{`
+        <style jsx scoped>{`
         .banner {
           background-color: #00b38a;
           height: 387px;
@@ -318,6 +327,14 @@ class Company extends PureComponent<State> {
           margin-top: 15px;
           background-color: #fafafa;
           border: 1px solid #ededed;
+        }
+        .company-wrapper {
+          margin-top: 40px;
+        }
+        .company-wrapper>ul {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
         }
         `}</style>
       </Layout>

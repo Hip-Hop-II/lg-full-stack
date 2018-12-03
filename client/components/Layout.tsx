@@ -17,14 +17,17 @@ Router.onRouteChangeError = () => {
   NProgress.done()
 }
 
-export default (props) => (
-  <div>
-    <Header />
-    <Nav />
+export default (props) => {
+  return (
+    <div>
+    {Router.pathname !== '/signin' && <Header /> }
+    {Router.pathname !== '/signin' && <Nav />}
     {props.children}
     <style jsx global>
     {resetStyle}
     </style>
     <style jsx global>{nprogressStyle}</style>
   </div>
-)
+  )
+  
+}
