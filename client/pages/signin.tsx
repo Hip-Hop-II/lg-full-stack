@@ -2,8 +2,27 @@ import React from 'react'
 import Layout from '../components/Layout'
 import WithRoute from '../components/WithRoute'
 
+const signTabs = [
+  {title: '密码登录'},
+  {title: '验证码登录'}
+]
+
 class Signin extends React.PureComponent {
+  state = {
+    slideLeft: 0,
+    selectedIndex: 0
+  }
+  itemClick = (event, item, index) => {
+    const {selectedIndex} = this.state
+    if (selectedIndex !== index) {
+      this.setState({
+        slideLeft: `${event.currentTarget.offsetLeft}px`,
+        selectedIndex: index
+      })
+    } 
+  }
   render () {
+    const {slideLeft, selectedIndex} = this.state
     return (
       <Layout>
         <header className="signin-bg">
@@ -15,6 +34,14 @@ class Signin extends React.PureComponent {
           </div>
           <div className="signin-content">
             <div className="signin-form">
+              <div className="signin-form__header">
+                <ul className="signin-tabs">
+                  {signTabs.map((item, index) => (
+                    <li className={index === selectedIndex ? 'signin-tab__item active' : 'signin-tab__item'} onClick={(event) => this.itemClick(event, item, index)} key={index}>{item.title}</li>
+                  ))}
+                </ul>
+                <span className="signin-tabs__active" style={{left: slideLeft}}></span>
+              </div>
             </div>
             <div className="signin-caption">
             </div>
@@ -47,6 +74,47 @@ class Signin extends React.PureComponent {
             background-color: #fff;
             border: 1px solid #dce1e6;
             border-radius: 4px;
+            display: flex;
+          }
+          .signin-form {
+            width: 290px;
+          }
+          .signin-form__header {
+            margin-bottom: 15px;
+            position: relative;
+          }
+          .signin-tabs {
+            display: flex;
+            position: relative;
+          }
+          .signin-tabs::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 1px;
+            background-color: #ebebeb;
+          }
+          .signin-tab__item {
+            flex: 0 0 50%;
+            text-align: center;
+            font-size: 16px;
+            line-height: 24px;
+            height: 33px;
+            transition: all .3s ease;
+            cursor: pointer;
+          }
+          .signin-tab__item.active {
+            color: #00b38a;
+          }
+          .signin-tabs__active {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50%;
+            height: 1px;
+            background-color: #00b38a;
+            transition: all .4s ease;
           }
         `}</style>
       </Layout>

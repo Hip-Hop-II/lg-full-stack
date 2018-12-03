@@ -20,8 +20,7 @@ Router.onRouteChangeError = () => {
 export default (props) => {
   return (
     <div>
-    {Router.pathname !== '/signin' && <Header /> }
-    {Router.pathname !== '/signin' && <Nav />}
+    
     {props.children}
     <style jsx global>
     {resetStyle}
