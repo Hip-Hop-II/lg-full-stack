@@ -2,14 +2,15 @@ import React, { PureComponent, Fragment } from 'react'
 
 type Props = {
   multiple?: boolean;
-  selectorList?: Array<any>;
-  selectedList?: Array<any>;
+  selectorList?: Array<Object>;
+  selectedList?: Array<Object>;
   selectorClick: Function;
+  selectedIndex?: Number;
 }
 
 export default class MultipleSelector extends PureComponent<Props> {
   static defaultProps = {
-    multiple: true,
+    multiple: false,
     selectedList: []
   }
   constructor (props) {
@@ -24,48 +25,57 @@ export default class MultipleSelector extends PureComponent<Props> {
     //   }
     // }
   }
-  public isInclude (current) {
-    if (this.props.selectedList.findIndex(mult => mult.title === current.title) !== -1) {
-      return true
+  public isInclude (current, index) {
+    const {multiple} = this.props
+    if (multiple) {
+      if (this.props.selectedList.findIndex(mult => mult.title === current.title) !== -1) {
+        return true
+      }
+      return false
+    } else {
+      if (this.props.selectedIndex === index) {
+        return true
+      }
+      return false
     }
-    return false
   }
   public itemClick = (item: {title?: String}, index: Number) => {
     this.props.selectorClick(item, index)
   }
   public renderItem = (item: {title?: String}, index: Number) => {
-    const {multiple, selectedList} = this.props
-    if (multiple) {  
-      return (
-        <li className={this.isInclude(item) ? 'multiple-item__wrapper active' : 'multiple-item__wrapper'} onClick={() => this.itemClick(item, index)}>
-          <span>{item.title}</span>
-          {this.isInclude(item) && <i></i>}
-          <style jsx scoped>{`
-          .multiple-item__wrapper {
-            padding: 4px 8px;
-            cursor: pointer;
-            transition: all .3s ease;
-          }
-          .multiple-item__wrapper.active {
-            background-color: #00b38a;
-            color: #fff;
-          }
-          .multiple-item__wrapper {
-            margin-left: 9px;
-            margin-right: 5px;
-          }
-          .multiple-item__wrapper.active>i {
-            display: inline-block;
-            width: 11px;
-            height: 11px;
-            background: url('/static/delete.png') center center no-repeat;
-            background-size: cover;
-            margin-left: 4px;
-          }
-          `}</style>
-        </li>
-      )
-    }
+    const {multiple} = this.props
+    return (
+      <li className={this.isInclude(item, index) ? 'multiple-item__wrapper active' : 'multiple-item__wrapper'} onClick={() => this.itemClick(item, index)}>
+        <span>{item.title}</span>
+        {(this.isInclude(item, index) && multiple) && <i></i>}
+        <style jsx scoped>{`
+        .multiple-item__wrapper {
+          padding: 4px 8px;
+          cursor: pointer;
+          transition: all .3s ease;
+        }
+        .multiple-item__wrapper.active {
+          background-color: #00b38a;
+          color: #fff;
+        }
+        .multiple-item__wrapper {
+          margin-left: 9px;
+          margin-right: 5px;
+        }
+        .multiple-item__wrapper>span {
+          font-weight: 300;
+        }
+        .multiple-item__wrapper.active>i {
+          display: inline-block;
+          width: 11px;
+          height: 11px;
+          background: url('/static/delete.png') center center no-repeat;
+          background-size: cover;
+          margin-left: 4px;
+        }
+        `}</style>
+      </li>
+    )
   }
   public render() {
     const {selectorList} = this.props
