@@ -1,11 +1,16 @@
 import React from 'react'
 import Layout from '../components/Layout'
 import WithRoute from '../components/WithRoute'
+import styled from 'styled-components'
 
 const signTabs = [
   {title: '密码登录'},
   {title: '验证码登录'}
 ]
+
+const StyleFormContent = styled.div`
+
+`
 
 class Signin extends React.PureComponent {
   state = {
@@ -42,6 +47,9 @@ class Signin extends React.PureComponent {
                 </ul>
                 <span className="signin-tabs__active" style={{left: slideLeft}}></span>
               </div>
+              <StyleFormContent>
+                
+              </StyleFormContent>
             </div>
             <div className="signin-caption">
             </div>
