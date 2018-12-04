@@ -1,17 +1,14 @@
 import React from 'react'
 import Layout from '../components/Layout'
 import WithRoute from '../components/WithRoute'
-import styled from 'styled-components'
+import SignInput from '../components/signForm/SignInput'
+import Button from '../components/Button'
+import Link from 'next/link'
 
 const signTabs = [
   {title: '密码登录'},
   {title: '验证码登录'}
 ]
-
-const StyleFormContent = styled.div`
-
-`
-
 class Signin extends React.PureComponent {
   state = {
     slideLeft: 0,
@@ -47,11 +44,28 @@ class Signin extends React.PureComponent {
                 </ul>
                 <span className="signin-tabs__active" style={{left: slideLeft}}></span>
               </div>
-              <StyleFormContent>
-                
-              </StyleFormContent>
+              <form>
+                <SignInput placeholder="请输入常用手机号/邮箱" />
+                <SignInput placeholder="请输入密码"  style={{marginTop: '20px'}} />
+                <div className="sign-forget">
+                    <Link href="">
+                      <a>忘记密码？</a>
+                    </Link>
+                </div>
+                <Button style={{width: '100%', height: '46px'}}>登录</Button>
+              </form>
             </div>
+            <div className="signin-divider"></div>
             <div className="signin-caption">
+              <div className="signin-caption__body">
+                 <h4>还没有账户:</h4>
+                 <Link href="">
+                    <a>立即注册</a>
+                 </Link>
+              </div>
+              <div className="signin-caption__footer">
+                 <h5>使用以下账号直接登录:</h5>
+              </div>
             </div>
           </div>
         </section>
@@ -63,7 +77,6 @@ class Signin extends React.PureComponent {
           .signin-wrapper {
             position: absolute;
             top: 76px;
-            width: 552px;
             left: 50%;
             transform: translateX(-50%);
           }
@@ -123,6 +136,57 @@ class Signin extends React.PureComponent {
             height: 1px;
             background-color: #00b38a;
             transition: all .4s ease;
+          }
+          .sign-input {
+            margin-top: 20px;
+          }
+          .sign-forget {
+            margin: 20px 0;
+            text-align: right;
+          }
+          .sign-forget>a {
+            color: #00b38a;
+            font-size: 14px;
+          }
+          .signin-divider {
+            position: relative;
+            border-left: 1px dashed #ededed;
+            height: 274px;
+            color: #d8d8d8;
+            margin: 0 52px;
+          }
+          .signin-divider::after {
+            content: 'or';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            padding: 2px;
+            background-color: #fff;
+          }
+          .signin-caption {
+            width: 150px;
+            text-algin: left;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+          }
+          .signin-caption__body {
+            margin-top: 22px;
+          }
+          .signin-caption__body h4 {
+            margin-bottom: 8px;
+            color: #555;
+          }
+          .signin-caption__body a {
+            color: #00b38a;
+          }
+          .signin-caption__footer {
+            margin-top: 44px;
+          }
+          .signin-caption__footer h5 {
+            color: #555;
           }
         `}</style>
       </Layout>

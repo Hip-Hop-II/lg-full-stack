@@ -1,10 +1,16 @@
 import React from 'react'
 
-export default class Button extends React.PureComponent {
+type Props = {
+  style?: Object;
+  onClick?: (any) => void;
+  className?: string;
+}
+
+export default class Button extends React.PureComponent<Props> {
   render () {
-    const {children, onClick, className} = this.props
+    const {children, onClick, className, style} = this.props
     return (
-      <button onClick={onClick} className={`wrapper ${className}`}>
+      <button style={style} onClick={onClick} className={`wrapper ${className}`}>
         {children}
         <style jsx>{`
           .wrapper {

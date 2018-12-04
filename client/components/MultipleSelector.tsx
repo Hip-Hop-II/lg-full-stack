@@ -3,7 +3,7 @@ import React, { PureComponent, Fragment } from 'react'
 type Props = {
   multiple?: boolean;
   selectorList?: Array<Object>;
-  selectedList?: Array<Object>;
+  selectedList?: Array<{title?: String}>;
   selectorClick: Function;
   selectedIndex?: Number;
 }
