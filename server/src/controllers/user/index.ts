@@ -2,10 +2,21 @@ import User from '../../models/User'
 import FavoritePosition from '../../models/FavoritePosition'
 import {avatar_img} from '../../utils/images'
 
+interface UserInterface {
+  username?: string;
+  password?: string;
+  _id?: number;
+  email?: string;
+  avatar?: string;
+  authUserPassword?:(any) => any;
+  createToken?: () => Object;
+  _hashPassword?: () => any
+}
+
 export async function signin (ctx: any):Promise<Object> {
   try {
     const {username, password} = ctx.request.body
-    const user = await User.findOne({
+    const user:UserInterface = await User.findOne({
       $or: [
         {username},
         {email: username}
@@ -17,7 +28,7 @@ export async function signin (ctx: any):Promise<Object> {
         message: '用户名不存在'
       }
     }
-    if (!user.authUser(password)) {
+    if (!user.authUserPassword(password)) {
       return ctx.body = {
         status: -403,
         message: '密码错误'
@@ -35,7 +46,7 @@ export async function signin (ctx: any):Promise<Object> {
 export async function signup (ctx: any) {
   try {
     const {username, email, password} = ctx.request.body
-    const user = await User.create({username, email, password, avatar: avatar_img})
+    const user:UserInterface = await User.create({username, email, password, avatar: avatar_img})
     await FavoritePosition.create({
       userId: user._id
     })
@@ -49,7 +60,7 @@ export async function signup (ctx: any) {
 }
 
 export async function getUserInfo (ctx: any):Promise <Object> {
-  const user = await User.findById({_id: ctx._id})
+  const user:UserInterface = await User.findById({_id: ctx._id})
   if (user) {
     return ctx.body = {
       status: 200,

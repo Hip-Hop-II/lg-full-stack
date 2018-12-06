@@ -3,7 +3,7 @@ import {hashSync, compareSync} from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import constants from '../config/constants'
 
-const UserSchema = new mongoose.Schema({
+const UserSchema:any = new mongoose.Schema({
   username: {
     required: true,
     unique: true,
@@ -35,7 +35,7 @@ UserSchema.methods = {
   _hashPassword (password: string) {
     return hashSync(password, 10)
   },
-  authUser (password: string) {
+  authUserPassword (password: string) {
     console.log(this._hashPassword(this.password))
     return compareSync(password, this.password)
   },

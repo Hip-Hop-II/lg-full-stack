@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-const PositionSchema = new mongoose.Schema({
+const PositionSchema:any = new mongoose.Schema({
   companyId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'company'

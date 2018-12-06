@@ -4,6 +4,8 @@ import WithRoute from '../components/WithRoute'
 import SignInput from '../components/signForm/SignInput'
 import Button from '../components/Button'
 import Link from 'next/link'
+import {signin} from '../lib/api/user'
+import Router from 'next/router'
 
 const signTabs = [
   {title: '密码登录'},
@@ -12,7 +14,9 @@ const signTabs = [
 class Signin extends React.PureComponent {
   state = {
     slideLeft: 0,
-    selectedIndex: 0
+    selectedIndex: 0,
+    username: '',
+    password: ''
   }
   itemClick = (event, item, index) => {
     const {selectedIndex} = this.state
@@ -22,6 +26,24 @@ class Signin extends React.PureComponent {
         selectedIndex: index
       })
     } 
+  }
+  handleChange = (tag: string, value: string):void => {
+    if (tag === 'username') {
+      this.setState({username: value})
+    } else {
+      this.setState({password: value})
+    }
+  }
+  submitClick = async () => {
+    const {username, password} = this.state
+    try {
+      const result:any = await signin({username, password})
+      if (result.status === 200) {
+        Router.push('/')
+      }
+    } catch (error) {
+      throw error
+    }
   }
   render () {
     const {slideLeft, selectedIndex} = this.state
@@ -44,16 +66,16 @@ class Signin extends React.PureComponent {
                 </ul>
                 <span className="signin-tabs__active" style={{left: slideLeft}}></span>
               </div>
-              <form>
-                <SignInput placeholder="请输入常用手机号/邮箱" />
-                <SignInput placeholder="请输入密码"  style={{marginTop: '20px'}} />
+              <div>
+                <SignInput placeholder="请输入常用手机号/邮箱" value={this.state.username} onChange={value => this.handleChange('username', value)} />
+                <SignInput placeholder="请输入密码" type="password" value={this.state.password} onChange={value => this.handleChange('password', value)} style={{marginTop: '20px'}} />
                 <div className="sign-forget">
                     <Link href="">
                       <a>忘记密码？</a>
                     </Link>
                 </div>
-                <Button style={{width: '100%', height: '46px'}}>登录</Button>
-              </form>
+                <Button onClick={this.submitClick} style={{width: '100%', height: '46px'}}>登录</Button>
+              </div>
             </div>
             <div className="signin-divider"></div>
             <div className="signin-caption">

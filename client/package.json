@@ -23,6 +23,7 @@
     "express": "^4.16.4",
     "next": "^7.0.2",
     "nprogress": "^0.2.0",
+    "query-string": "^6.2.0",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "typescript": "^3.2.0-dev.20181020"
