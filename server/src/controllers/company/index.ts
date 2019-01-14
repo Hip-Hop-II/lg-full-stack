@@ -4,14 +4,14 @@ import LgCompany from '../../models/LgCompany'
 import * as utils from '../../utils'
 
 
-function _getParamsValue (array: Array<Object>):Array<String> {
+function _getParamsValue (array: Array<any>):Array<any> {
   const arr = array.map(item => item.title)
   return arr
 }
-function _parseParams (params: Object):Object {
+function _parseParams (params: any):any {
   const {city, financeStage, companySize, industryField} = params
   console.log(financeStage)
-  let options = {}
+  let options:any = {}
   if (financeStage.length > 0) {
     options.financeStage = {
       $in: _getParamsValue(financeStage)
@@ -33,7 +33,7 @@ export async function getList(ctx: any) {
   try {
     const {limit, skip, sort} = utils.formatQueryParams(ctx.request.query)
     const queryParams = _parseParams(ctx.request.body)
-    const total = await LgCompany.count()
+    const total = await LgCompany.count({})
     const list = await LgCompany.find(queryParams).limit(limit).skip(skip).sort(sort)
     if (list) {
       return ctx.body = { ...utils.getStatusAndError({ status: 200 }), list,

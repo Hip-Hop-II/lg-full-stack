@@ -1,7 +1,7 @@
 import FavoritePosition from '../../models/FavoritePosition'
 import * as utils from '../../utils'
 
-export async function facoritePosition (ctx: any):Object {
+export async function facoritePosition (ctx: any):Promise<Object> {
   try {
     const userId = ctx._id
     console.log(ctx._id)
@@ -14,10 +14,10 @@ export async function facoritePosition (ctx: any):Object {
     }
     const favorites = await FavoritePosition.findOne({userId})
     console.log(favorites)
-    const fav = await favorites.userFavoritedPosition(_id)
+    // const fav:any = await favorites.userFavoritedPosition(_id)
     return ctx.body = {
       ...utils.getStatusAndError({status: 200}),
-      data: fav
+      data: []
     }
   } catch (error) {
     throw error

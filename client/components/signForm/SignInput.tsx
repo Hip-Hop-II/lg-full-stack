@@ -5,8 +5,12 @@ type Props = {
   onChange?: (any) => void;
   value?: number|string|any;
   placeholder?: string;
+  type: string
 }
 export default class SignInput extends PureComponent<Props> {
+  static defaultProps = {
+    type: 'text'
+  }
   public render () {
     const {style, onChange, value, ...arg} = this.props
     return (

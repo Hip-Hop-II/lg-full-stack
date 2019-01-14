@@ -4,7 +4,7 @@ interface options {
 }
 
 
-export function getStatusAndError (options: Object): Object {
+export function getStatusAndError (options: any): any {
   const {status} = options
   switch (status) {
     case 200:
@@ -22,12 +22,7 @@ export function getStatusAndError (options: Object): Object {
   }
 }
 
-interface params {
-  currentPage: Number,
-  pageSize: Number,
-  sort: Object
-}
-export function formatQueryParams (params: Object): Object {
+export function formatQueryParams (params: any): any {
   let {currentPage, pageSize, sort} = params
   let limit = parseInt(pageSize) || 10
   currentPage = currentPage || 1

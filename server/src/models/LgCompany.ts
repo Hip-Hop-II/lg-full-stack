@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-const LgCompanySchema = new mongoose.Schema({
+const LgCompanySchema:any = new mongoose.Schema({
   companyId: {
     unique: true,
     type: Number

@@ -28,11 +28,11 @@ export async function getList(ctx: any): Promise<Object> {
     const userId = ctx._id
     const queryFields = _parseParams(ctx.request.body)
     const {limit, skip, sort} = utils.formatQueryParams(ctx.request.query)
-    const total = await LgPosition.count()
+    const total = await LgPosition.count({})
     const p1 = await LgPosition.find(queryFields)
       .limit(limit).skip(skip).sort(sort)
     const p2 = await FavoritePosition.findOne({userId})
-    const [positionList, favorites] = await Promise.all([p1, p2])
+    const [positionList, favorites]:any = await Promise.all([p1, p2])
     // 判断当前职位是否收藏
     const list = positionList.map((position, index) => {
       const ps = position.toJSON()
