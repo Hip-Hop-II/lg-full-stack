@@ -1,4 +1,4 @@
-import * as Koa from 'koa'
+import Koa from 'koa'
 import middlewares from './middleware'
 import constants from './config/constants'
 

@@ -9,6 +9,8 @@ import {
 import {connect} from 'react-redux'
 import {AsyncStorage} from 'react-native'
 
+import AuthLoadingScreen from '../screen/AuthLoadingScreen'
+
 
 const AuthNavigator = createStackNavigator({
   Signin: {
@@ -97,13 +99,21 @@ const MainNavigator = createStackNavigator({
    
   }
 })
+const AuthLoadingStack = createStackNavigator({
+  AuthLoading: () => require('../screen/AuthLoadingScreen').default
+}, {
+  navigationOptions: {
+    header: null
+  }
+})
 export const navigationMiddleware = createReactNavigationReduxMiddleware('root', state => state.nav)
 
 export const RootNavigator = createSwitchNavigator({
+  AuthLoading: AuthLoadingScreen,
   Auth: AuthNavigator,
   Main: MainNavigator
 }, {
-  initialRouteName: 'Auth'
+  initialRouteName: 'AuthLoading'
 })
 
 const AppWithNavigationState = reduxifyNavigator(RootNavigator, 'root')

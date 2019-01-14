@@ -60,7 +60,6 @@ export default class SigninScreen extends PureComponent {
       this.setState({
         loading: false
       })
-      alert(JSON.stringify(data))
       if (data.status === 200) {
         await AsyncStorage.setItem('Authorization', data.data)
         this.props.navigation.navigate('Main')
